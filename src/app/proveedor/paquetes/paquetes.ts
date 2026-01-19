@@ -292,12 +292,12 @@ export class PaquetesComponent implements OnInit {
         }
       };
 
-      console.log('📦 Guardando paquete:', packageToSave);
+
 
       // Crear el paquete usando Observable
       this.apiService.createProviderPackage(packageToSave).subscribe({
         next: (createdPackage) => {
-          console.log('✅ Paquete creado exitosamente:', createdPackage);
+
 
           this.successMessage.set(
             this.packageData().estado === 'publicado'

@@ -36,7 +36,7 @@ export class ProveedorRegistroComponent {
         this.error = '';
 
         try {
-            console.log('🔵 Registrando proveedor independiente...');
+
 
             // 1. Registrar proveedor (TODO en un solo paso!)
             const registerData = {
@@ -46,25 +46,22 @@ export class ProveedorRegistroComponent {
                 descripcion: `Categoría: ${this.categoria}`,
                 direccion_formato: this.ubicacion || undefined
             };
-            console.log('📤 Datos de registro:', registerData);
+
 
             const registerResponse = await this.api.registerProvider(registerData).toPromise();
-            console.log('✅ Proveedor registrado:', registerResponse);
 
-            console.log('🔵 Iniciando sesión automáticamente...');
+
+
 
             // 2. Login automático
             const loginResponse = await this.api.loginProvider(this.email, this.password).toPromise();
-            console.log('✅ Login exitoso:', {
-                token: loginResponse.token ? 'Token recibido' : 'No token',
-                proveedorId: loginResponse.proveedor?.id,
-                nombreNegocio: loginResponse.proveedor?.nombre_negocio
-            });
+
+
 
             // 3. Guardar sesión
             this.auth.login(loginResponse.token, loginResponse.proveedor);
 
-            console.log('🎉 Registro completado, redirigiendo al dashboard...');
+
             this.router.navigate(['/proveedor/dashboard']);
 
         } catch (err: any) {

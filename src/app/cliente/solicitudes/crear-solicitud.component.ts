@@ -86,7 +86,7 @@ export class CrearSolicitudComponent implements OnInit {
             estado: 'pendiente' // New initial state
         };
 
-        console.log('Enviando solicitud:', solicitudData);
+
         // Simulate navigation
         this.router.navigate(['/cliente/solicitudes']);
     }

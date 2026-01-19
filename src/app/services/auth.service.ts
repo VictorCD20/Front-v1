@@ -10,6 +10,18 @@ export class AuthService {
   isLoggedIn = signal(this.hasToken());
   currentUser = signal<any>(this.getStoredUser());
 
+  private encrypt(data: string): string {
+    return btoa(data); // Simple obfuscation (Base64) - For real security use HttpOnly cookies
+  }
+
+  private decrypt(data: string): string {
+    try {
+      return atob(data);
+    } catch {
+      return '';
+    }
+  }
+
   private hasToken(): boolean {
     return !!localStorage.getItem(this.TOKEN_KEY);
   }
@@ -17,20 +29,20 @@ export class AuthService {
   private getStoredUser(): any {
     const user = localStorage.getItem(this.USER_KEY);
     try {
-      return user ? JSON.parse(user) : null;
+      return user ? JSON.parse(this.decrypt(user)) : null;
     } catch (e) {
-      console.error('Error parsing stored user', e);
       return null;
     }
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    return token ? this.decrypt(token) : null;
   }
 
   login(token: string, user: any): void {
-    localStorage.setItem(this.TOKEN_KEY, token);
-    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    localStorage.setItem(this.TOKEN_KEY, this.encrypt(token));
+    localStorage.setItem(this.USER_KEY, this.encrypt(JSON.stringify(user)));
     this.isLoggedIn.set(true);
     this.currentUser.set(user);
   }
