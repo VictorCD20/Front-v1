@@ -23,23 +23,23 @@ export class MarketplaceComponent implements OnInit {
     categories = signal<string[]>([]);
 
     ngOnInit(): void {
+        // TODO: Implement a real endpoint for categories in the backend
+        const categoryList = ['DJ / Sonido', 'Catering', 'Fotografía', 'Decoración', 'Iluminación', 'Pastelería'];
+        this.categories.set(categoryList);
+
         this.api.getProviderPackages().subscribe(packages => {
-            const providersData = packages.map(p => ({
+            const providersData = packages.map((p, index) => ({
                 id: p.id,
                 nombre: p.nombre,
-                // TODO: The backend ProviderPackage model does not have category, rating, location or image.
-                // These are placeholder values.
-                categoria: 'Categoría no especificada', 
+                // Assign a category from the list cyclically for demonstration purposes
+                categoria: categoryList[index % categoryList.length],
                 precio: p.precio_base,
-                rating: 4.5, 
-                ubicacion: 'Ubicación no especificada', 
-                imagen: '📦' 
+                rating: 4.5,
+                ubicacion: 'CDMX',
+                imagen: p.detalles_json?.imagen || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAnSy6IARdd8wHEF_Ps8CaRlyhqB8SNcq5tCGwU0QC4h7aBIbE1e4vnqwd6xoGm2dJR9pGjhK6TKaCN359bbt65RpIAHgHvXUppFkUvMszWPvilDkiDtVL2TUpf4HhdNZiEaG3itGClvS6LLV91CkQPC4ynUx2bqOIQgROydpsWPK0Bugq1Cf_G_JBIr_JgCWn_phWoQ0Nyto8wQ0HAuU53PlFU_Nm08wTgrmcmx0VmV9CVDGPsMhWTcg4xGSHnXvd0mce1t9iI6GY'
             }));
             this.providers.set(providersData);
         });
-
-        // TODO: Implement a real endpoint for categories in the backend
-        this.categories.set(['DJ / Sonido', 'Catering', 'Fotografía', 'Decoración', 'Iluminación', 'Pastelería']);
     }
 
     get filteredProviders() {

@@ -1,5 +1,6 @@
 import { Component, signal, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../shared/header/header';
 import { ApiService } from '../../services/api.service';
 import { Cart } from '../../models';
@@ -7,7 +8,7 @@ import { Cart } from '../../models';
 @Component({
     selector: 'app-carrito',
     standalone: true,
-    imports: [RouterLink, HeaderComponent],
+    imports: [RouterLink, HeaderComponent, FormsModule],
     templateUrl: './carrito.html'
 })
 export class CarritoComponent implements OnInit {
@@ -16,6 +17,14 @@ export class CarritoComponent implements OnInit {
     currentStep = signal(1); // 1: Carrito, 2: Checkout (Revisión/Pago)
 
     items = signal<any[]>([]);
+
+    // Event Details (Checkout)
+    eventDate = signal('');
+    eventTime = signal('');
+    eventLocation = signal('');
+
+    // Recommendations (Cross-Selling) - Initially empty to strictly follow user rule
+    recommendations = signal<any[]>([]);
 
     ngOnInit(): void {
         this.api.getCart().subscribe(cart => {
