@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SolicitudesService, SolicitudCliente } from './solicitudes.service';
 
+import { HeaderComponent } from '../../shared/header/header';
+
 @Component({
     selector: 'app-mis-solicitudes',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, HeaderComponent],
     templateUrl: './solicitudes.component.html',
     styles: [] // Usaremos Tailwind en el HTML
 })

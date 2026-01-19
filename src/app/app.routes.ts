@@ -12,6 +12,12 @@ import { CarritoComponent } from './cliente/carrito/carrito';
 import { ClienteDashboardComponent } from './cliente/dashboard/dashboard';
 import { CrearSolicitudComponent } from './cliente/solicitudes/crear-solicitud.component';
 import { MisSolicitudesComponent } from './cliente/solicitudes/solicitudes.component';
+import { ClienteSoporteComponent } from './cliente/soporte/soporte';
+import { ClienteDireccionesComponent } from './cliente/direcciones/direcciones';
+import { ClientePagosComponent } from './cliente/pagos/pagos';
+import { ClientePagoAnticipoComponent } from './cliente/pagos/anticipo/anticipo';
+import { ClientePagoLiquidarComponent } from './cliente/pagos/liquidar/liquidar';
+import { ClienteRecordatorioPagoComponent } from './cliente/pagos/recordatorio/recordatorio';
 
 // Proveedor
 import { ProveedorRegistroComponent } from './proveedor/registro/registro';
@@ -35,6 +41,12 @@ export const routes: Routes = [
     { path: 'cliente/dashboard', component: ClienteDashboardComponent },
     { path: 'cliente/solicitudes', component: MisSolicitudesComponent },
     { path: 'cliente/solicitudes/crear', component: CrearSolicitudComponent },
+    { path: 'cliente/soporte', component: ClienteSoporteComponent },
+    { path: 'cliente/direcciones', component: ClienteDireccionesComponent },
+    { path: 'cliente/pagos', component: ClientePagosComponent },
+    { path: 'cliente/pagos/anticipo', component: ClientePagoAnticipoComponent },
+    { path: 'cliente/pagos/liquidar', component: ClientePagoLiquidarComponent },
+    { path: 'cliente/pagos/recordatorio', component: ClienteRecordatorioPagoComponent },
 
     // Proveedor
     { path: 'proveedor/registro', component: ProveedorRegistroComponent },

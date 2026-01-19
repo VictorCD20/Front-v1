@@ -1,0 +1,136 @@
+<div class="bg-glacial dark:bg-background-dark text-[#171112] dark:text-white min-h-screen">
+    <!-- TopNavBar -->
+    <app-header></app-header>
+
+    <main class="max-w-[1000px] mx-auto py-12 px-6">
+        <!-- Main Central Card -->
+        <div
+            class="bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl border border-zinc-100 dark:border-zinc-800 overflow-hidden">
+            <!-- PageHeading -->
+            <div class="p-10 border-b border-zinc-100 dark:border-zinc-800">
+                <div class="flex items-center gap-2 text-primary mb-2">
+                    <span class="material-symbols-outlined text-lg">report</span>
+                    <span class="text-sm font-bold uppercase tracking-wider">Reporte Urgente</span>
+                </div>
+                <h1 class="text-[#171112] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+                    Reportar un Incidente</h1>
+                <p class="text-zinc-500 dark:text-zinc-400 text-lg mt-1">Evento: <span
+                        class="font-semibold text-zinc-800 dark:text-zinc-200">Boda Martínez</span></p>
+            </div>
+            <div class="p-10 space-y-10">
+                <!-- Section 1: Naturaleza -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <span
+                            class="flex items-center justify-center size-8 rounded-full bg-primary/10 text-primary font-bold">1</span>
+                        <h2 class="text-zinc-900 dark:text-white text-xl font-bold tracking-tight">Naturaleza del
+                            problema</h2>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div
+                            class="group cursor-pointer border-2 border-zinc-100 dark:border-zinc-800 rounded-xl p-6 flex flex-col items-center text-center gap-4 transition-all hover:border-primary/50 hover:bg-primary/5">
+                            <span
+                                class="material-symbols-outlined text-3xl text-zinc-400 group-hover:text-primary">schedule</span>
+                            <p class="text-sm font-bold text-zinc-700 dark:text-zinc-300">Retraso del proveedor</p>
+                        </div>
+                        <div
+                            class="group cursor-pointer border-2 border-primary rounded-xl p-6 flex flex-col items-center text-center gap-4 bg-primary/5">
+                            <span class="material-symbols-outlined text-3xl text-primary">engineering</span>
+                            <p class="text-sm font-bold text-zinc-900 dark:text-white">Problema técnico</p>
+                        </div>
+                        <div
+                            class="group cursor-pointer border-2 border-zinc-100 dark:border-zinc-800 rounded-xl p-6 flex flex-col items-center text-center gap-4 transition-all hover:border-primary/50 hover:bg-primary/5">
+                            <span
+                                class="material-symbols-outlined text-3xl text-zinc-400 group-hover:text-primary">person_off</span>
+                            <p class="text-sm font-bold text-zinc-700 dark:text-zinc-300">Comportamiento inadecuado</p>
+                        </div>
+                        <div
+                            class="group cursor-pointer border-2 border-zinc-100 dark:border-zinc-800 rounded-xl p-6 flex flex-col items-center text-center gap-4 transition-all hover:border-primary/50 hover:bg-primary/5">
+                            <span
+                                class="material-symbols-outlined text-3xl text-zinc-400 group-hover:text-primary">emergency</span>
+                            <p class="text-sm font-bold text-zinc-700 dark:text-zinc-300">Emergencia médica</p>
+                        </div>
+                    </div>
+                </section>
+                <!-- Severity Toggle -->
+                <section>
+                    <h3 class="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Gravedad del incidente
+                    </h3>
+                    <div class="flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl w-full max-w-md">
+                        <button
+                            class="flex-1 py-2 text-sm font-bold rounded-lg text-zinc-600 dark:text-zinc-400 transition-all hover:bg-white dark:hover:bg-zinc-700">Menor</button>
+                        <button
+                            class="flex-1 py-2 text-sm font-bold rounded-lg bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-sm border border-zinc-200 dark:border-zinc-600">Moderado</button>
+                        <button
+                            class="flex-1 py-2 text-sm font-bold rounded-lg text-zinc-600 dark:text-zinc-400 transition-all hover:bg-white dark:hover:bg-zinc-700">Crítico</button>
+                    </div>
+                </section>
+                <!-- Section 2: Descripción -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <span
+                            class="flex items-center justify-center size-8 rounded-full bg-primary/10 text-primary font-bold">2</span>
+                        <h2 class="text-zinc-900 dark:text-white text-xl font-bold tracking-tight">¿Qué está
+                            sucediendo?</h2>
+                    </div>
+                    <textarea
+                        class="w-full h-40 p-5 rounded-xl border-2 border-zinc-100 dark:border-zinc-800 dark:bg-zinc-800 focus:border-primary focus:ring-0 transition-colors text-zinc-800 dark:text-zinc-200 placeholder:text-zinc-400"
+                        placeholder="Describe los hechos de forma breve y clara para que nuestro equipo pueda asistirte mejor..."></textarea>
+                </section>
+                <!-- Section 3: Pruebas visuales -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <span
+                            class="flex items-center justify-center size-8 rounded-full bg-primary/10 text-primary font-bold">3</span>
+                        <h2 class="text-zinc-900 dark:text-white text-xl font-bold tracking-tight">Evidencia Visual
+                            (Opcional)</h2>
+                    </div>
+                    <div
+                        class="border-2 border-dashed border-zinc-200 dark:border-zinc-700 rounded-2xl p-12 flex flex-col items-center justify-center gap-4 bg-zinc-50 dark:bg-zinc-800/30 group hover:border-primary transition-colors cursor-pointer">
+                        <div
+                            class="size-16 rounded-full bg-white dark:bg-zinc-700 shadow-sm flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined text-3xl">cloud_upload</span>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-lg font-bold text-zinc-900 dark:text-white">Haz clic para subir fotos o
+                                videos</p>
+                            <p class="text-zinc-500 text-sm">O arrastra los archivos aquí (Máx 20MB)</p>
+                        </div>
+                    </div>
+                </section>
+                <!-- Action Button -->
+                <div class="pt-6">
+                    <button
+                        class="w-full py-5 bg-primary hover:bg-red-700 text-white text-lg font-extrabold rounded-2xl shadow-xl shadow-red-500/20 flex items-center justify-center gap-3 transition-all transform active:scale-[0.98]">
+                        <span class="material-symbols-outlined">send</span>
+                        Enviar Reporte y Contactar Soporte
+                    </button>
+                    <!-- Assurance Footer -->
+                    <div
+                        class="mt-8 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-800 flex items-start gap-4">
+                        <span
+                            class="material-symbols-outlined text-blue-600 dark:text-blue-400 mt-0.5">verified_user</span>
+                        <div class="space-y-1">
+                            <p class="text-blue-900 dark:text-blue-200 font-bold text-sm">Tu protección es nuestra
+                                prioridad</p>
+                            <p class="text-blue-800/80 dark:text-blue-300/80 text-xs leading-relaxed">
+                                Un agente de FestEasy revisará este reporte de inmediato. Los fondos en Escrow están
+                                protegidos hasta la resolución del caso de acuerdo a nuestra política de seguridad.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Float Support -->
+        <div class="fixed bottom-8 right-8">
+            <button
+                class="size-14 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined">chat</span>
+            </button>
+        </div>
+    </main>
+    <footer class="text-center py-12 text-zinc-400 dark:text-zinc-600 text-xs uppercase tracking-widest">
+        © 2024 FestEasy Inc. • Sistema de Seguridad en Vivo • Escrow Protection Enabled
+    </footer>
+</div>

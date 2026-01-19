@@ -1,0 +1,44 @@
+
+> festeasy-frontend@0.0.0 build
+> ng build
+
+Node.js version v25.2.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/previous-releases/.
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [4.713 seconds] - 2026-01-19T01:46:39.869Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: All imports are unused[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/cliente/dashboard/dashboard.ts:10:4:
+[37m      10 │     [32mimports[37m: [RouterLink, HeaderComponent],
+         ╵     [32m~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: MapaComponent is not used within the template of MarketplaceComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/cliente/marketplace/marketplace.ts:12:56:
+[37m      12 │ ...mports: [RouterLink, FormsModule, HeaderComponent, [32mMapaComponent[37m],
+         ╵                                                       [32m~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: RouterLink is not used within the template of MisSolicitudesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/cliente/solicitudes/solicitudes.component.ts:11:28:
+[37m      11 │     imports: [CommonModule, [32mRouterLink[37m, HeaderComponent],
+         ╵                             [32m~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mNG5002: Unexpected closing tag "div". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/cliente/dashboard/dashboard.html:275:0:
+[37m      275 │ [32m</div>[37m
+          ╵ [32m~~~~~~[0m
+
+  Error occurs in the template of component ClienteDashboardComponent.
+
+    src/app/cliente/dashboard/dashboard.ts:11:17:
+[37m      11 │     templateUrl: [32m'./dashboard.html'[37m
+         ╵                  [32m~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

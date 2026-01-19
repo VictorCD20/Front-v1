@@ -1,0 +1,124 @@
+<div class="layout-container flex flex-col min-h-screen">
+    <app-header></app-header>
+    <main class="flex-1 flex flex-col items-center py-12 px-6">
+        <div
+            class="w-full max-w-[900px] bg-white rounded-card shadow-[0_32px_64px_-16px_rgba(0,0,0,0.06)] overflow-hidden">
+            <div class="px-10 py-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-text-main mb-1">Mis Métodos de Pago</h1>
+                    <p class="text-text-muted text-sm">Gestiona tus tarjetas y cuentas de pago para tus eventos.</p>
+                </div>
+                <button
+                    class="bg-primary text-white px-6 py-3 rounded-full text-sm font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    Añadir Nueva Tarjeta
+                </button>
+            </div>
+            <div class="px-10 pb-12">
+                @if (pagos().length === 0) {
+                <div class="text-center p-12 bg-gray-50 rounded-item border border-gray-100">
+                    <span class="material-symbols-outlined text-4xl text-gray-300 mb-4">credit_card_off</span>
+                    <p class="text-text-muted font-medium">No tienes métodos de pago guardados</p>
+                </div>
+                } @else {
+                <div class="space-y-6">
+                    @for (pago of pagos(); track pago.id) {
+                    <div
+                        [class]="'group relative bg-white border border-gray-100 rounded-item p-6 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-6 ' + (pago.principal ? 'border-l-4 border-l-primary' : '')">
+                        <div class="flex items-center gap-6">
+                            <div
+                                class="w-16 h-10 bg-gray-50 rounded flex items-center justify-center border border-gray-100 overflow-hidden">
+                                <img [alt]="pago.tipo" class="w-10 opacity-80" [src]="pago.icono" />
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-3 mb-1">
+                                    <span class="font-bold text-text-main">{{ pago.nombre }}</span>
+                                    @if (pago.principal) {
+                                    <span
+                                        class="bg-soft-pink text-primary text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border border-primary/10">Principal</span>
+                                    }
+                                </div>
+                                <p class="text-text-muted text-sm">Caduca el {{ pago.expiracion }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            @if (!pago.principal) {
+                            <button
+                                class="text-sm font-semibold text-text-muted hover:text-text-main transition-colors cursor-pointer">Establecer
+                                como principal</button>
+                            <div class="w-px h-4 bg-gray-200"></div>
+                            }
+                            <button
+                                class="text-sm font-semibold text-text-muted hover:text-primary transition-colors cursor-pointer">Eliminar</button>
+                        </div>
+                    </div>
+                    }
+                </div>
+                }
+
+                <div class="mt-12">
+                    <h2 class="text-lg font-bold text-text-main mb-6 flex items-center gap-2">
+                        Otros Métodos
+                        <div class="flex-1 h-px bg-gray-100"></div>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div
+                            class="border border-gray-100 rounded-item p-6 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="size-12 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                                    <span class="material-symbols-outlined">account_balance</span>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-sm text-text-main">Cuenta Bancaria BBVA</p>
+                                    <p class="text-xs text-text-muted">ES42 **** **** 1234</p>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined text-gray-300">chevron_right</span>
+                        </div>
+                        <div
+                            class="border border-gray-100 rounded-item p-6 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="size-12 rounded-full bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                    <span class="material-symbols-outlined">payments</span>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-sm text-text-main">PayPal</p>
+                                    <p class="text-xs text-text-muted">m.rivera@festeasy.com</p>
+                                </div>
+                            </div>
+                            <span class="material-symbols-outlined text-gray-300">chevron_right</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50/50 p-8 border-t border-gray-100">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 max-w-[700px] mx-auto">
+                    <div class="flex items-center gap-8">
+                        <a class="flex items-center gap-2 text-sm font-semibold text-text-main hover:text-primary transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined text-[20px]">settings</span>
+                            Configuración
+                        </a>
+                        <!-- Current page active style if needed, currently reusing logic -->
+                        <a class="flex items-center gap-2 text-sm font-semibold text-primary transition-colors"
+                            routerLink="/cliente/pagos">
+                            <span class="material-symbols-outlined text-[20px]">credit_card</span>
+                            Métodos de Pago
+                        </a>
+                    </div>
+                    <a class="flex items-center gap-2 text-sm font-bold text-text-muted hover:text-primary transition-colors"
+                        routerLink="/cliente/dashboard">
+                        <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                        Volver al Panel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="py-10 text-center">
+        <p class="text-xs text-text-muted font-medium tracking-wide">© 2024 FestEasy. Gestión segura de pagos premium.
+        </p>
+    </footer>
+</div>

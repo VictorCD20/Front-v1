@@ -1,362 +1,227 @@
-<div class="min-h-screen bg-gray-50 pb-12">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200 sticky top-0 z-30">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <img src="assets/festeasy.jpeg" alt="Logo" class="h-8 w-auto">
-                <span class="font-bold text-xl tracking-tight text-gray-900">FESTEASY</span>
-            </div>
-            <div class="flex items-center gap-4 text-sm font-medium text-gray-500">
-                <a href="#" class="hover:text-gray-900">Eventos</a>
-                <a href="#" class="hover:text-gray-900">Proveedores</a>
-                <a href="#" class="hover:text-gray-900 text-primary">Mis Solicitudes</a>
-                <div class="h-8 w-8 bg-orange-200 rounded-full overflow-hidden">
-                    <img src="https://ui-avatars.com/api/?name=Cliente" alt="Avatar">
-                </div>
-            </div>
+<div class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#e8cfd0]/30">
+    <div class="layout-container flex w-full flex-col">
+        <div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-3">
+            <app-header></app-header>
         </div>
-    </header>
+    </div>
+</div>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<main class="max-w-[1280px] mx-auto px-6 py-12 lg:py-16 font-display text-jet-black dark:text-white"
+    [formGroup]="solicitudForm">
+    <!-- Page Heading -->
+    <div class="mb-12">
+        <h1 class="text-jet-black dark:text-white text-5xl font-black leading-tight tracking-[-0.033em]">Solicitud de
+            Servicio</h1>
+        <p class="text-gray-500 dark:text-gray-400 text-lg mt-2">Completa los detalles para verificar la disponibilidad
+            en tiempo real.</p>
+    </div>
 
-        <!-- Title Section -->
-        <div class="flex justify-between items-start mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Crear Nueva Solicitud</h1>
-                <div class="flex items-center gap-2 mt-2 text-sm">
-                    <span class="bg-red-100 text-red-600 px-2 py-0.5 rounded font-medium">Decoración</span>
-                    <span class="text-gray-500">Paso {{currentStep}} de 2</span>
-                </div>
-            </div>
-            <button
-                class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium transition-colors">
-                Cancelar
-            </button>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-            <!-- Left Column: Form -->
-            <div class="lg:col-span-2 space-y-6">
-
-                <!-- Stepper Progress (Visual) -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="relative">
-                        <!-- Connecting Line -->
-                        <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-100"></div>
-
-                        <!-- Step 1 Indicator -->
-                        <div class="relative flex gap-4 mb-8">
-                            <div class="relative z-10 flex items-center justify-center w-12 h-12 rounded-full border-2 transition-colors"
-                                [ngClass]="currentStep >= 1 ? 'bg-red-500 border-red-500 text-white' : 'bg-white border-gray-300 text-gray-400'">
-                                <span class="material-icons-outlined text-xl" *ngIf="currentStep > 1">check</span>
-                                <span class="text-lg font-bold" *ngIf="currentStep === 1">1</span>
-                            </div>
-                            <div class="pt-1">
-                                <h3 class="font-bold text-gray-900" [ngClass]="{'text-red-600': currentStep === 1}">1.
-                                    Detalles del Evento</h3>
-                                <p class="text-sm text-gray-500" *ngIf="currentStep === 1">Paso actual</p>
-                                <p class="text-sm text-green-600" *ngIf="currentStep > 1">Completado</p>
-                            </div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <!-- Left Side: Client Request Form -->
+        <div
+            class="lg:col-span-7 bg-white dark:bg-background-dark/50 p-8 lg:p-10 rounded-lg editorial-card border border-gray-100 dark:border-white/5">
+            <div class="flex flex-col gap-10">
+                <!-- Calendar Section -->
+                <section>
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-primary">calendar_today</span>
+                        <h3 class="text-xl font-bold tracking-tight">Fecha del Evento</h3>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-white/5 rounded-lg p-6 border border-gray-100 dark:border-white/5">
+                        <div class="flex items-center justify-between mb-6">
+                            <button class="p-2 hover:bg-white dark:hover:bg-white/10 rounded-full transition-colors">
+                                <span class="material-symbols-outlined">chevron_left</span>
+                            </button>
+                            <p class="text-lg font-bold">{{ currentMonth }}</p>
+                            <button class="p-2 hover:bg-white dark:hover:bg-white/10 rounded-full transition-colors">
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </button>
                         </div>
-
-                        <!-- Step 2 Indicator -->
-                        <div class="relative flex gap-4 mb-8">
-                            <div class="relative z-10 flex items-center justify-center w-12 h-12 rounded-full border-2 transition-colors"
-                                [ngClass]="currentStep === 2 ? 'bg-red-500 border-red-500 text-white' : (currentStep > 2 ? 'bg-red-500 border-red-500 text-white' : 'bg-white border-gray-300 text-gray-400')">
-                                <span class="text-lg font-bold">2</span>
-                            </div>
-                            <div class="pt-1">
-                                <h3 class="font-bold text-gray-900" [ngClass]="{'text-red-600': currentStep === 2}">2.
-                                    Requerimientos Específicos</h3>
-                                <p class="text-sm text-gray-500">{{ currentStep === 2 ? 'Paso actual' : 'Pendiente' }}
-                                </p>
-                            </div>
+                        <div class="grid grid-cols-7 text-center text-sm font-bold text-gray-400 mb-4">
+                            <div>D</div>
+                            <div>L</div>
+                            <div>M</div>
+                            <div>M</div>
+                            <div>J</div>
+                            <div>V</div>
+                            <div>S</div>
                         </div>
+                        <div class="grid grid-cols-7 gap-1">
+                            <!-- Calendar Grid -->
+                            @for (day of daysInMonth; track $index) {
+                            <button
+                                class="h-12 w-full rounded-full transition-colors font-medium flex items-center justify-center"
+                                [class.text-gray-300]="$index < 2" [ngClass]="{'hover:bg-primary/5': isNumber(day)}"
+                                [class.bg-primary]="solicitudForm.get('fecha_servicio')?.value === day"
+                                [class.text-white]="solicitudForm.get('fecha_servicio')?.value === day"
+                                [class.shadow-md]="solicitudForm.get('fecha_servicio')?.value === day"
+                                (click)="selectDate(day)">
+                                {{ day }}
+                            </button>
+                            }
+                        </div>
+                        <div class="mt-4 text-center text-xs text-gray-400 font-medium h-4">
+                            <span
+                                *ngIf="solicitudForm.get('fecha_servicio')?.invalid && solicitudForm.get('fecha_servicio')?.touched"
+                                class="text-red-500">Selecciona una fecha</span>
+                            <span *ngIf="!solicitudForm.get('fecha_servicio')?.invalid">Haz clic para seleccionar una
+                                fecha</span>
+                        </div>
+                    </div>
+                </section>
 
-                        <!-- Step 3 Indicator (Visual only as per design) -->
-                        <div class="relative flex gap-4">
-                            <div
-                                class="relative z-10 flex items-center justify-center w-12 h-12 rounded-full border-2 bg-white border-gray-300 text-gray-400">
-                                <span class="text-lg font-bold">3</span>
-                            </div>
-                            <div class="pt-1">
-                                <h3 class="font-bold text-gray-400">3. Revisión y Envío</h3>
-                                <p class="text-sm text-gray-400">Pendiente</p>
-                            </div>
+                <!-- Time and Location -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">schedule</span>
+                            <label class="text-base font-bold">Hora de Inicio</label>
+                        </div>
+                        <select formControlName="hora_servicio"
+                            class="form-input w-full rounded-full border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 h-14 px-6 focus:ring-primary focus:border-primary transition-all">
+                            <option>18:00 PM</option>
+                            <option>19:00 PM</option>
+                            <option>20:00 PM</option>
+                            <option>21:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                            <label class="text-base font-bold">Ubicación</label>
+                        </div>
+                        <div class="relative group">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors">search</span>
+                            <input formControlName="ubicacion"
+                                class="w-full rounded-full border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 h-14 pl-12 pr-6 focus:ring-primary focus:border-primary transition-all"
+                                placeholder="Ciudad o local" type="text" />
                         </div>
                     </div>
                 </div>
 
-                <!-- FORM CONTENT: STEP 1 -->
-                <form [formGroup]="solicitudForm" *ngIf="currentStep === 1" class="space-y-6">
-
-                    <!-- Event Selection -->
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Vincular a un Evento</h3>
-                        <p class="text-gray-500 text-sm mb-6">Selecciona un evento de tu lista o crea uno nuevo para
-                            esta solicitud.</p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Option 1: Existing -->
-                            <label
-                                class="relative border-2 rounded-xl p-4 cursor-pointer hover:border-red-200 transition-colors"
-                                [class.border-red-500]="true" [class.bg-red-50]="true">
-                                <div class="flex justify-between items-start mb-2">
-                                    <span class="font-bold text-gray-900">Evento Existente</span>
-                                    <input type="radio" name="evtType" checked
-                                        class="text-red-600 focus:ring-red-500 h-4 w-4">
-                                </div>
-                                <select formControlName="titulo_evento"
-                                    class="mt-2 w-full border-gray-300 rounded-lg text-sm shadow-sm focus:border-red-500 focus:ring-red-500">
-                                    <option value="" disabled>Selecciona un evento</option>
-                                    <option *ngFor="let evt of eventos" [value]="evt.nombre">{{evt.nombre}}</option>
-                                </select>
-                                <p class="text-red-500 text-xs mt-1"
-                                    *ngIf="solicitudForm.get('titulo_evento')?.touched && solicitudForm.get('titulo_evento')?.invalid">
-                                    Selecciona un evento
-                                </p>
-                            </label>
-
-                            <!-- Option 2: New -->
-                            <label
-                                class="relative border-2 border-gray-200 rounded-xl p-4 cursor-pointer hover:border-red-200 transition-colors">
-                                <div class="flex justify-between items-start mb-2">
-                                    <span class="font-bold text-gray-900">Crear Evento Nuevo</span>
-                                    <input type="radio" name="evtType" class="text-red-600 focus:ring-red-500 h-4 w-4">
-                                </div>
-                                <p class="text-xs text-gray-500 mt-2">Define un nuevo contexto de evento</p>
-                            </label>
+                <!-- Map Pin Visual -->
+                <div
+                    class="w-full h-48 rounded-lg overflow-hidden border border-gray-100 dark:border-white/5 relative bg-gray-200">
+                    <div class="absolute inset-0 bg-cover bg-center opacity-60 dark:opacity-40"
+                        data-alt="Abstract minimalist map showing venue location" data-location="Mexico City"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBGfB7G9srpfvq9zb5F42kb_uAhQdZcFKC0F3AzofCFTZk3kQXpCQ-x6KW0NJy6Oop4KbMKK3MhZ_KHOd1Fl5W2RXVhZJowzxGOih3VZD0j4mryflahobjruCv1yubsYr-p6B41y5uJoEpWoa3jSb6UExWwwTeXCFskwPA2cDSgYMRfW_4MQLV3iFly7_iC4TQpVMOiUgu3-dCv0qxG4kzTeHqBTdPD-89uE49pypHuO5arLVJ7zRsccJRgp48mzds-xfK_2446jjU');">
+                    </div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div
+                            class="size-10 bg-primary rounded-full flex items-center justify-center text-white shadow-xl animate-bounce">
+                            <span class="material-symbols-outlined">location_on</span>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Logistics -->
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Logística del Servicio</h3>
-                        <p class="text-gray-500 text-sm mb-6">Indica cuándo y dónde necesitas que el proveedor se
-                            presente.</p>
+        <!-- Right Side: Live Availability Card -->
+        <div class="lg:col-span-5 sticky top-28">
+            <div
+                class="bg-white dark:bg-background-dark/50 rounded-lg editorial-card border border-gray-100 dark:border-white/5 overflow-hidden">
+                <div class="p-8 border-b border-gray-100 dark:border-white/5">
+                    <h3 class="text-2xl font-black tracking-tight text-jet-black dark:text-white">Disponibilidad del
+                        Proveedor</h3>
+                    <p class="text-gray-500 text-sm mt-1">Verificando agenda en tiempo real...</p>
+                </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-2">Fecha y Hora</label>
-                                <div class="flex gap-2">
-                                    <input type="date" formControlName="fecha_servicio"
-                                        class="w-full border-gray-300 rounded-lg shadow-sm focus:border-red-500 focus:ring-red-500">
-                                    <input type="time" formControlName="hora_servicio"
-                                        class="w-24 border-gray-300 rounded-lg shadow-sm focus:border-red-500 focus:ring-red-500">
-                                </div>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-2">Nro. de Invitados <span
-                                        class="material-icons-outlined text-xs text-gray-400 align-middle">info</span></label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="material-icons-outlined text-gray-400">groups</span>
-                                    </div>
-                                    <input type="number" formControlName="invitados" placeholder="Ej: 150"
-                                        class="pl-10 w-full border-gray-300 rounded-lg shadow-sm focus:border-red-500 focus:ring-red-500">
-                                </div>
-                            </div>
+                <!-- Checking State -->
+                @if (checkingAvailability()) {
+                <div class="p-8 flex flex-col items-center justify-center py-12">
+                    <div class="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+                    <p class="mt-4 text-gray-500 font-medium">Consultando calendario...</p>
+                </div>
+                }
+                <!-- Available State -->
+                @else if (isAvailable() === true) {
+                <div class="p-8 bg-emerald-50/50 dark:bg-emerald-900/10">
+                    <div class="flex flex-col items-center text-center gap-4 py-4">
+                        <div
+                            class="size-20 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-inner">
+                            <span class="material-symbols-outlined text-4xl font-bold">check_circle</span>
                         </div>
-
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-2">Ubicación del Servicio</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="material-icons-outlined text-red-500">location_on</span>
-                                </div>
-                                <input type="text" formControlName="ubicacion"
-                                    placeholder="Buscar dirección o recinto..."
-                                    class="pl-10 w-full border-gray-300 rounded-lg shadow-sm focus:border-red-500 focus:ring-red-500">
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                                    <span class="material-icons-outlined text-gray-400">search</span>
-                                </div>
-                            </div>
-                            <!-- Fake Map -->
-                            <div
-                                class="mt-4 h-48 bg-gray-100 rounded-xl overflow-hidden relative border border-gray-200">
-                                <img src="https://mt1.google.com/vt/lyrs=m&x=1325&y=3143&z=13"
-                                    class="w-full h-full object-cover opacity-60" alt="Map Preview">
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <span
-                                        class="bg-white/80 px-4 py-2 rounded-lg text-sm font-medium text-gray-600 backdrop-blur-sm">Previsualización
-                                        del mapa</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- FORM CONTENT: STEP 2 -->
-                <form [formGroup]="solicitudForm" *ngIf="currentStep === 2" class="space-y-6">
-                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                        <h3 class="text-lg font-bold text-gray-900 mb-2">Describe lo que necesitas</h3>
-
-                        <textarea formControlName="descripcion" rows="4"
-                            class="w-full border-gray-300 rounded-xl shadow-sm focus:border-red-500 focus:ring-red-500 text-sm"
-                            placeholder="Ej. Estilo vintage, colores pastel, ambiente íntimo para 50 personas..."></textarea>
-                        <p class="text-xs text-gray-400 mt-2 text-right">Sé lo más detallado posible para que podamos
-                            encontrar el mejor proveedor.</p>
-
-
-                        <h3 class="text-lg font-bold text-gray-900 mt-8 mb-4">Servicios específicos adicionales</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" formGroupName="servicios_adicionales">
-                            <label
-                                class="flex items-center p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors bg-white">
-                                <input type="checkbox" formControlName="montaje"
-                                    class="rounded text-red-600 focus:ring-red-500 h-5 w-5 mr-3">
-                                <span class="text-sm font-medium text-gray-700">Montaje y Decoración</span>
-                            </label>
-                            <label
-                                class="flex items-center p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors bg-white">
-                                <input type="checkbox" formControlName="limpieza"
-                                    class="rounded text-red-600 focus:ring-red-500 h-5 w-5 mr-3">
-                                <span class="text-sm font-medium text-gray-700">Desmontaje y Limpieza</span>
-                            </label>
-                            <label
-                                class="flex items-center p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors bg-white">
-                                <input type="checkbox" formControlName="iluminacion"
-                                    class="rounded text-red-600 focus:ring-red-500 h-5 w-5 mr-3">
-                                <span class="text-sm font-medium text-gray-700">Iluminación Ambiental</span>
-                            </label>
-                            <label
-                                class="flex items-center p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors bg-white">
-                                <input type="checkbox" formControlName="sonido"
-                                    class="rounded text-red-600 focus:ring-red-500 h-5 w-5 mr-3">
-                                <span class="text-sm font-medium text-gray-700">Sonido y DJ</span>
-                            </label>
-                            <label
-                                class="flex items-center p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors bg-white">
-                                <input type="checkbox" formControlName="foto"
-                                    class="rounded text-red-600 focus:ring-red-500 h-5 w-5 mr-3">
-                                <span class="text-sm font-medium text-gray-700">Fotografía y Video</span>
-                            </label>
-                            <label
-                                class="flex items-center p-4 border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors bg-white">
-                                <input type="checkbox" formControlName="catering"
-                                    class="rounded text-red-600 focus:ring-red-500 h-5 w-5 mr-3">
-                                <span class="text-sm font-medium text-gray-700">Catering / Banquetes</span>
-                            </label>
-                        </div>
-
-                        <h3 class="text-lg font-bold text-gray-900 mt-8 mb-4">Presupuesto Estimado (Opcional)</h3>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <span class="text-gray-500 font-bold">$</span>
-                            </div>
-                            <input type="number" formControlName="presupuesto" placeholder="0.00"
-                                class="pl-8 w-full border-gray-300 rounded-xl shadow-sm focus:border-red-500 focus:ring-red-500 py-3">
-                        </div>
-                        <p class="text-xs text-gray-400 mt-2">Esto nos ayuda a filtrar proveedores que se ajusten a tu
-                            rango.</p>
-
-                        <h3 class="text-lg font-bold text-gray-900 mt-8 mb-4">Inspiración y Moodboards</h3>
-                        <div
-                            class="border-2 border-dashed border-gray-300 rounded-2xl p-8 text-center hover:bg-gray-50 transition-colors cursor-pointer bg-white">
-                            <div
-                                class="h-12 w-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
-                                <span class="material-icons-outlined">cloud_upload</span>
-                            </div>
-                            <h4 class="font-bold text-gray-900 text-sm">Haz clic o arrastra archivos aquí</h4>
-                            <p class="text-xs text-gray-500 mt-1">Sube tus imágenes de referencia o documentos PDF (Máx.
-                                5MB cada una)</p>
-                        </div>
-                        <p class="text-xs text-gray-400 mt-2 italic">No se han seleccionado archivos.</p>
-
-                    </div>
-                </form>
-
-                <!-- Navigation Buttons -->
-                <div class="flex justify-end pt-4">
-                    <button *ngIf="currentStep > 1" (click)="prevStep()"
-                        class="px-6 py-3 bg-white border border-gray-300 text-gray-700 font-bold rounded-xl mr-4 hover:bg-gray-50 transition-colors">
-                        ← Atrás
-                    </button>
-
-                    <button *ngIf="currentStep < 2" (click)="nextStep()"
-                        class="px-8 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 shadow-lg shadow-red-200 transition-transform transform hover:-translate-y-0.5">
-                        Siguiente →
-                    </button>
-
-                    <button *ngIf="currentStep === 2" (click)="submit()" [disabled]="isLoading"
-                        class="px-8 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 shadow-lg shadow-red-200 transition-transform transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
-                        <span *ngIf="isLoading"
-                            class="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
-                        {{ isLoading ? 'Enviando...' : 'Confirmar Solicitud' }}
-                    </button>
-                </div>
-
-            </div>
-
-            <!-- Right Column: Summary -->
-            <div class="hidden lg:block">
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-24">
-                    <div class="bg-red-600 p-4 flex items-center gap-2 text-white">
-                        <span class="material-icons-outlined">shopping_basket</span>
-                        <h3 class="font-bold">Resumen de Solicitud</h3>
-                    </div>
-
-                    <div class="p-6">
-                        <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Categoría</p>
-                        <h4 class="text-lg font-bold text-gray-900 mb-6">Decoración de Eventos</h4>
-
-                        <div class="space-y-6">
-                            <div class="flex gap-3">
-                                <div class="mt-1">
-                                    <span class="material-icons-outlined text-red-500 text-sm">event</span>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-gray-500">Evento</p>
-                                    <p class="text-sm font-medium text-gray-800">{{
-                                        solicitudForm.get('titulo_evento')?.value || 'Selecciona un evento' }}</p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-3">
-                                <div class="mt-1">
-                                    <span class="material-icons-outlined text-red-500 text-sm">schedule</span>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-gray-500">Fecha y Hora</p>
-                                    <p class="text-sm font-medium text-gray-800 italic"
-                                        *ngIf="!solicitudForm.get('fecha_servicio')?.value">Pendiente de completar</p>
-                                    <p class="text-sm font-medium text-gray-800"
-                                        *ngIf="solicitudForm.get('fecha_servicio')?.value">
-                                        {{ solicitudForm.get('fecha_servicio')?.value | date:'mediumDate' }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="flex gap-3">
-                                <div class="mt-1">
-                                    <span class="material-icons-outlined text-red-500 text-sm">location_on</span>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-gray-500">Ubicación</p>
-                                    <p class="text-sm font-medium text-gray-800 italic"
-                                        *ngIf="!solicitudForm.get('ubicacion')?.value">No especificada</p>
-                                    <p class="text-sm font-medium text-gray-800"
-                                        *ngIf="solicitudForm.get('ubicacion')?.value">
-                                        {{ solicitudForm.get('ubicacion')?.value }}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-8 bg-gray-50 p-4 rounded-xl flex gap-3 text-xs text-gray-600">
-                            <span class="material-icons-outlined text-gray-400 text-lg">lightbulb</span>
-                            <p>Completa estos detalles para que podamos sugerirte los mejores decoradores disponibles.
-                            </p>
-                        </div>
-
-                        <div
-                            class="mt-6 pt-6 border-t border-gray-100 text-[10px] text-center text-gray-400 leading-relaxed">
-                            Al continuar, aceptas nuestros términos de servicio para solicitudes de proveedores.
+                            <h4 class="text-3xl font-black text-emerald-700 dark:text-emerald-400">¡Disponible!</h4>
+                            <p class="text-emerald-600/80 dark:text-emerald-400/60 font-medium mt-1">El {{
+                                solicitudForm.get('fecha_servicio')?.value }} de Octubre está libre para tu evento.</p>
                         </div>
                     </div>
                 </div>
+                }
+                <!-- Occupied State (Example logic) -->
+                @else if (isAvailable() === false) {
+                <div class="p-8 bg-red-50/50 dark:bg-red-900/10">
+                    <div class="flex flex-col items-center text-center gap-4 py-4">
+                        <div
+                            class="size-20 bg-red-100 dark:bg-primary/20 rounded-full flex items-center justify-center text-primary shadow-inner">
+                            <span class="material-symbols-outlined text-4xl font-bold">event_busy</span>
+                        </div>
+                        <div>
+                            <h4 class="text-3xl font-black text-primary">Fecha Ocupada</h4>
+                            <p class="text-primary/70 font-medium mt-1">Lo sentimos, esta fecha ya está reservada.</p>
+                        </div>
+                    </div>
+                </div>
+                }
+
+                <div class="p-8 space-y-6">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex justify-between text-sm font-semibold">
+                            <span class="text-gray-400">Tarifa base sugerida</span>
+                            <span class="text-jet-black dark:text-white">$450.00 / hr</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-semibold">
+                            <span class="text-gray-400">Respuesta promedio</span>
+                            <span class="text-jet-black dark:text-white">&lt; 2 horas</span>
+                        </div>
+                    </div>
+
+                    @if (isAvailable() !== true) {
+                    <button (click)="checkAvailability()"
+                        class="w-full bg-primary text-white h-16 rounded-full text-lg font-black shadow-xl shadow-primary/30 hover:shadow-primary/40 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                        <span>Solicitar Disponibilidad</span>
+                        <span class="material-symbols-outlined">search</span>
+                    </button>
+                    } @else {
+                    <button (click)="submitRequest()"
+                        class="w-full bg-emerald-600 text-white h-16 rounded-full text-lg font-black shadow-xl shadow-emerald-600/30 hover:shadow-emerald-600/40 transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                        <span>Confirmar Reserva</span>
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                    }
+
+                    <p class="text-center text-xs text-gray-400 font-medium px-6 leading-relaxed">
+                        Al enviar la solicitud, el proveedor recibirá tus detalles. No se realizará ningún cargo hasta
+                        que la reserva sea confirmada.
+                    </p>
+                </div>
             </div>
 
+            <!-- Provider Mini-Card -->
+            <div
+                class="mt-6 p-4 flex items-center gap-4 bg-white/40 dark:bg-white/5 rounded-full border border-gray-100 dark:border-white/5 backdrop-blur-sm">
+                <div class="size-12 rounded-full overflow-hidden" data-alt="Provider profile thumbnail"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJg-UHZmj8wZem8Xs5l6iyLytV4U8lvpxFTy5SOlILOqJ4cDw5yHpHsAapKRzcKrIuZ1InjKRFtLMHWMIuq9znCph_1ZhOMp_mR2YxjrEcpaZ6C09xg7fQ0PWxz4T1qSOPLX4j2lCp09MaHXFy5ElGezhq8K8JmAg-RQ14Ifz0yeeu0sJntxRHpWHmAc5DTerm4Ljtg-Gn_cN2fQru8YL_AmwdBT_3zgBtSSH8I1mHvXsWAELJZyMpAfyn_0TCKcWP-tNDYpWHdSY'); background-size: cover;">
+                </div>
+                <div>
+                    <p class="text-sm font-black">DJ Nexos</p>
+                    <div class="flex items-center text-yellow-500 text-xs">
+                        <span class="material-symbols-outlined text-xs fill-1">star</span>
+                        <span class="material-symbols-outlined text-xs fill-1">star</span>
+                        <span class="material-symbols-outlined text-xs fill-1">star</span>
+                        <span class="material-symbols-outlined text-xs fill-1">star</span>
+                        <span class="material-symbols-outlined text-xs fill-1">star_half</span>
+                        <span class="ml-1 font-bold text-gray-500 dark:text-gray-400">4.8 (124 reviews)</span>
+                    </div>
+                </div>
+                <button class="ml-auto p-2 text-gray-400 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                </button>
+            </div>
         </div>
-    </main>
+    </div>
+</main>
+<div class="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary/10 via-primary to-primary/10 opacity-30">
 </div>

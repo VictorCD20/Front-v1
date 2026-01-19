@@ -4,78 +4,41 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } 
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { HeaderComponent } from '../../shared/header/header';
 
 @Component({
     selector: 'app-crear-solicitud',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, HeaderComponent],
     templateUrl: './crear-solicitud.component.html',
-    styleUrls: ['./crear-solicitud.component.css']
+    styles: []
 })
 export class CrearSolicitudComponent implements OnInit {
     private fb = inject(FormBuilder);
     private api = inject(ApiService);
     private router = inject(Router);
     private auth = inject(AuthService);
+    private route = inject(ActivatedRoute);
 
-    currentStep = 1;
-    isLoading = false;
+    // Estado de UI
+    checkingAvailability = signal(false);
+    isAvailable = signal<boolean | null>(null); // null: not checked, true: available, false: occupied
+    targetProviderId = '9851a62f-92db-41e8-b430-b68a3d46b578'; // Default/Fallback
 
-    // Formulario principal que agrupa todo
+    // Calendar Generation
+    currentMonth = 'Octubre 2024';
+    daysInMonth: (number | string)[] = [];
+
     solicitudForm: FormGroup = this.fb.group({
-        // Paso 1: Detalles
-        titulo_evento: ['', Validators.required],
-        fecha_servicio: ['', Validators.required],
-        hora_servicio: ['12:00', Validators.required],
-        ubicacion: ['', Validators.required],
-        invitados: [50, [Validators.required, Validators.min(1)]],
-
-        // Paso 2: Requerimientos
-        descripcion: ['', Validators.required],
-        presupuesto: [0],
-        servicios_adicionales: this.fb.group({
-            montaje: [false],
-            limpieza: [false],
-            iluminacion: [false],
-            sonido: [false],
-            foto: [false],
-            catering: [false]
-        })
+        fecha_servicio: ['', Validators.required], // Store selected day
+        hora_servicio: ['19:00 PM', Validators.required],
+        ubicacion: ['', Validators.required]
     });
 
-    // Datos simulados para "Evento Existente" (Dropdown)
-    eventos = [
-        { id: 1, nombre: 'Graduación 2024 - Junio 15' },
-        { id: 2, nombre: 'Cumpleaños Mariana' },
-        { id: 3, nombre: 'Boda Civil' }
-    ];
-
-    nextStep() {
-        // Validar paso actual antes de avanzar
-        if (this.currentStep === 1) {
-            const controls = ['titulo_evento', 'fecha_servicio', 'hora_servicio', 'ubicacion', 'invitados'];
-            const valid = controls.every(c => this.solicitudForm.get(c)?.valid);
-
-            if (!valid) {
-                this.solicitudForm.markAllAsTouched();
-                return;
-            }
-        }
-
-        this.currentStep++;
-        window.scrollTo(0, 0);
-    }
-
-    prevStep() {
-        this.currentStep--;
-        window.scrollTo(0, 0);
-    }
-
-    private route = inject(ActivatedRoute);
-    private targetProviderId = '9851a62f-92db-41e8-b430-b68a3d46b578'; // Default/Fallback
-
     ngOnInit() {
-        // Leer ID del proveedor de la URL si existe (ej: /cliente/solicitudes/crear?providerId=123)
+        this.generateCalendar();
+
+        // Leer ID del proveedor de la URL
         this.route.queryParams.subscribe(params => {
             if (params['providerId']) {
                 this.targetProviderId = params['providerId'];
@@ -83,40 +46,58 @@ export class CrearSolicitudComponent implements OnInit {
         });
     }
 
-    submit() {
+    generateCalendar() {
+        // Mock simple calendar generation for UI demo
+        // Start padding
+        this.daysInMonth = [29, 30];
+        // Days 1-31
+        for (let i = 1; i <= 31; i++) {
+            this.daysInMonth.push(i);
+        }
+    }
+
+    checkAvailability() {
         if (this.solicitudForm.invalid) {
             this.solicitudForm.markAllAsTouched();
             return;
         }
 
-        this.isLoading = true;
-        const formValue = this.solicitudForm.value;
+        this.checkingAvailability.set(true);
+        this.isAvailable.set(null);
 
-        // Construir objeto para el backend
+        // Simulate API delay
+        setTimeout(() => {
+            this.checkingAvailability.set(false);
+            this.isAvailable.set(true); // Mock success
+        }, 1500);
+    }
+
+    submitRequest() {
+        if (!this.isAvailable()) return;
+
+        // Create the actual request
+        const formValue = this.solicitudForm.value;
         const solicitudData = {
             cliente_usuario_id: this.auth.currentUser()?.id,
             proveedor_usuario_id: this.targetProviderId,
-            titulo_evento: formValue.titulo_evento,
-            fecha_servicio: new Date(`${formValue.fecha_servicio}T${formValue.hora_servicio}`).toISOString(),
+            titulo_evento: 'Solicitud de Disponibilidad', // Default title
+            fecha_servicio: new Date().toISOString(), // In real app, parse the selected date
             direccion_servicio: formValue.ubicacion,
-            longitud_servicio: 0,
-            latitud_servicio: 0
+            estado: 'pendiente' // New initial state
         };
 
         console.log('Enviando solicitud:', solicitudData);
+        // Simulate navigation
+        this.router.navigate(['/cliente/solicitudes']);
+    }
 
-        this.api.createRequest(solicitudData).subscribe({
-            next: (res) => {
-                console.log('Solicitud creada:', res);
-                this.isLoading = false;
-                // Redirigir a "Mis Solicitudes"
-                this.router.navigate(['/cliente/solicitudes']);
-            },
-            error: (err) => {
-                console.error('Error:', err);
-                this.isLoading = false;
-                alert('Error al crear la solicitud. Verifica la consola.');
-            }
-        });
+    selectDate(day: any) {
+        if (typeof day === 'number') {
+            this.solicitudForm.patchValue({ fecha_servicio: day });
+        }
+    }
+
+    isNumber(val: any): boolean {
+        return typeof val === 'number';
     }
 }

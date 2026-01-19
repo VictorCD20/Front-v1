@@ -1,971 +1,107 @@
-<style>
-    /* ========================================
-       Dashboard Layout con Sidebar
-       ======================================== */
-    .dashboard-layout {
-        display: flex;
-        min-height: 100vh;
-        background: var(--color-gray-light);
-    }
-
-    /* Sidebar */
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 260px;
-        height: 100vh;
-        background: var(--color-white);
-        border-right: 1px solid var(--color-gray-border);
-        display: flex;
-        flex-direction: column;
-        z-index: 100;
-    }
-
-    .sidebar-logo {
-        padding: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 1px solid var(--color-gray-border);
-    }
-
-    .sidebar-logo img {
-        height: 40px;
-        object-fit: contain;
-    }
-
-    .sidebar-nav {
-        flex: 1;
-        padding: 16px;
-        overflow-y: auto;
-    }
-
-    .nav-item {
-        display: flex;
-        align-items: center;
-        padding: 14px 16px;
-        margin-bottom: 4px;
-        border-radius: 12px;
-        color: var(--color-gray);
-        font-weight: 500;
-        transition: all 0.2s ease;
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-    .nav-item:hover {
-        background: var(--color-gray-light);
-        color: var(--color-dark);
-    }
-
-    .nav-item.active {
-        background: rgba(233, 30, 99, 0.1);
-        color: var(--color-primary);
-    }
-
-    .nav-item-icon {
-        margin-right: 12px;
-        font-size: 20px;
-    }
-
-    .sidebar-footer {
-        padding: 16px;
-        border-top: 1px solid var(--color-gray-border);
-    }
-
-    /* Main Content */
-    .main-content {
-        flex: 1;
-        margin-left: 260px;
-    }
-
-    /* Header */
-    .dashboard-header {
-        position: sticky;
-        top: 0;
-        height: 72px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid var(--color-gray-border);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 32px;
-        z-index: 50;
-    }
-
-    .search-box {
-        position: relative;
-        width: 360px;
-    }
-
-    .search-box input {
-        width: 100%;
-        padding: 10px 16px 10px 44px;
-        background: var(--color-gray-light);
-        border: none;
-        border-radius: 24px;
-        font-size: 14px;
-        outline: none;
-        transition: box-shadow 0.2s ease;
-    }
-
-    .search-box input:focus {
-        box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
-    }
-
-    .search-box-icon {
-        position: absolute;
-        left: 14px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--color-gray);
-    }
-
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .notification-btn {
-        position: relative;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s ease;
-    }
-
-    .notification-btn:hover {
-        background: var(--color-gray-light);
-    }
-
-    .notification-badge {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        width: 8px;
-        height: 8px;
-        background: var(--color-primary);
-        border-radius: 50%;
-        border: 2px solid var(--color-white);
-    }
-
-    .user-profile {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding-left: 16px;
-        border-left: 1px solid var(--color-gray-border);
-    }
-
-    .user-info {
-        text-align: right;
-    }
-
-    .user-name {
-        font-weight: 600;
-        font-size: 14px;
-        color: var(--color-dark);
-    }
-
-    .user-role {
-        font-size: 12px;
-        color: var(--color-gray);
-    }
-
-    .user-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--color-primary), #ff6b6b);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 600;
-        font-size: 16px;
-    }
-
-    /* Dashboard Content */
-    .dashboard-content {
-        padding: 32px;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .welcome-section {
-        margin-bottom: 32px;
-    }
-
-    .welcome-section h1 {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .welcome-section p {
-        color: var(--color-gray);
-    }
-
-    /* Métricas Cards */
-    .metrics-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin-bottom: 32px;
-    }
-
-    .metric-card {
-        background: var(--color-white);
-        padding: 24px;
-        border-radius: 16px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--color-gray-border);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .metric-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-    }
-
-    .metric-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-    }
-
-    .metric-icon.blue {
-        background: #e3f2fd;
-    }
-
-    .metric-icon.amber {
-        background: #fff8e1;
-    }
-
-    .metric-icon.green {
-        background: #e8f5e9;
-    }
-
-    .metric-period {
-        font-size: 12px;
-        color: var(--color-gray);
-    }
-
-    .metric-label {
-        font-size: 14px;
-        color: var(--color-gray);
-        margin-bottom: 4px;
-    }
-
-    .metric-value {
-        font-size: 28px;
-        font-weight: 700;
-    }
-
-    /* Layout Grid */
-    .content-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 32px;
-    }
-
-    .main-column {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-    }
-
-    .side-column {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-    }
-
-    /* Cards */
-    .card {
-        background: var(--color-white);
-        border-radius: 16px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--color-gray-border);
-        overflow: hidden;
-    }
-
-    .card-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 24px;
-        border-bottom: 1px solid var(--color-gray-border);
-    }
-
-    .card-title {
-        font-size: 18px;
-        font-weight: 600;
-    }
-
-    .card-link {
-        color: var(--color-primary);
-        font-size: 14px;
-        font-weight: 500;
-        cursor: pointer;
-    }
-
-    .card-body {
-        padding: 24px;
-    }
-
-    /* Evento Activo */
-    .evento-activo {
-        display: flex;
-        gap: 24px;
-        align-items: center;
-    }
-
-    .evento-imagen {
-        width: 180px;
-        height: 180px;
-        border-radius: 16px;
-        background: linear-gradient(135deg, #ffeef8, #fff0f0);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 64px;
-        flex-shrink: 0;
-    }
-
-    .evento-info {
-        flex: 1;
-    }
-
-    .evento-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        background: rgba(233, 30, 99, 0.1);
-        color: var(--color-primary);
-        font-size: 11px;
-        font-weight: 700;
-        border-radius: 20px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 12px;
-    }
-
-    .evento-titulo {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-
-    .evento-ubicacion {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        color: var(--color-gray);
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .progreso-container {
-        margin-bottom: 20px;
-    }
-
-    .progreso-header {
-        display: flex;
-        justify-content: space-between;
-        font-size: 14px;
-        margin-bottom: 8px;
-    }
-
-    .progreso-label {
-        color: var(--color-gray);
-    }
-
-    .progreso-value {
-        font-weight: 700;
-        color: var(--color-primary);
-    }
-
-    .progreso-bar {
-        height: 10px;
-        background: var(--color-gray-light);
-        border-radius: 5px;
-        overflow: hidden;
-    }
-
-    .progreso-fill {
-        height: 100%;
-        background: var(--color-primary);
-        border-radius: 5px;
-        transition: width 0.3s ease;
-    }
-
-    .evento-actions {
-        display: flex;
-        gap: 12px;
-    }
-
-    .btn-primary {
-        padding: 12px 24px;
-        background: var(--color-primary);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
-    }
-
-    .btn-primary:hover {
-        background: #d81b60;
-        transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-        padding: 12px 24px;
-        background: var(--color-gray-light);
-        color: var(--color-dark);
-        border: none;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-        background: #e2e8f0;
-    }
-
-    /* Tabla de Actividad */
-    .activity-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .activity-table th {
-        padding: 12px 20px;
-        background: var(--color-gray-light);
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--color-gray);
-        text-align: left;
-    }
-
-    .activity-table td {
-        padding: 16px 20px;
-        border-bottom: 1px solid var(--color-gray-border);
-    }
-
-    .activity-proveedor {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .proveedor-icon {
-        width: 36px;
-        height: 36px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-    }
-
-    .proveedor-icon.red {
-        background: #ffebee;
-    }
-
-    .proveedor-icon.amber {
-        background: #fff8e1;
-    }
-
-    .proveedor-icon.blue {
-        background: #e3f2fd;
-    }
-
-    .proveedor-nombre {
-        font-weight: 600;
-        font-size: 14px;
-    }
-
-    .proveedor-servicio {
-        font-size: 12px;
-        color: var(--color-gray);
-    }
-
-    .estado-badge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .estado-aceptado {
-        background: #e8f5e9;
-        color: #2e7d32;
-    }
-
-    .estado-pendiente {
-        background: #fff8e1;
-        color: #f57c00;
-    }
-
-    .estado-negociacion {
-        background: #e3f2fd;
-        color: #1565c0;
-    }
-
-    .estado-rechazado {
-        background: #ffebee;
-        color: #c62828;
-    }
-
-    .estado-completado {
-        background: #e8f5e9;
-        color: #1b5e20;
-    }
-
-    .estado-cancelado {
-        background: #fafafa;
-        color: #757575;
-    }
-
-    .monto {
-        font-weight: 600;
-    }
-
-    /* Recomendados */
-    .recomendado-item {
-        display: flex;
-        align-items: center;
-        padding: 12px;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: background 0.2s ease;
-    }
-
-    .recomendado-item:hover {
-        background: var(--color-gray-light);
-    }
-
-    .recomendado-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, #ffeef8, #fff0f0);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        margin-right: 12px;
-    }
-
-    .recomendado-info {
-        flex: 1;
-    }
-
-    .recomendado-nombre {
-        font-weight: 600;
-        font-size: 14px;
-    }
-
-    .recomendado-rating {
-        font-size: 12px;
-        color: var(--color-gray);
-    }
-
-    .recomendado-arrow {
-        color: #cbd5e1;
-        transition: color 0.2s ease;
-    }
-
-    .recomendado-item:hover .recomendado-arrow {
-        color: var(--color-primary);
-    }
-
-    .btn-outline-full {
-        width: 100%;
-        padding: 12px;
-        background: transparent;
-        border: 1px solid var(--color-gray-border);
-        border-radius: 12px;
-        font-weight: 600;
-        color: var(--color-gray);
-        cursor: pointer;
-        margin-top: 12px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-outline-full:hover {
-        background: var(--color-gray-light);
-        color: var(--color-dark);
-    }
-
-    /* Tareas */
-    .tareas-card {
-        background: rgba(233, 30, 99, 0.05);
-        border: 1px solid rgba(233, 30, 99, 0.15);
-    }
-
-    .tareas-card .card-header {
-        border-bottom: 1px solid rgba(233, 30, 99, 0.15);
-    }
-
-    .tarea-item {
-        display: flex;
-        align-items: center;
-        padding: 14px 16px;
-        background: var(--color-white);
-        border-radius: 12px;
-        margin-bottom: 10px;
-        cursor: pointer;
-        border: 1px solid rgba(233, 30, 99, 0.1);
-        transition: all 0.2s ease;
-    }
-
-    .tarea-item:hover {
-        border-color: var(--color-primary);
-    }
-
-    .tarea-item.completada {
-        opacity: 0.6;
-    }
-
-    .tarea-item.completada .tarea-texto {
-        text-decoration: line-through;
-    }
-
-    .tarea-checkbox {
-        width: 18px;
-        height: 18px;
-        border: 2px solid var(--color-gray-border);
-        border-radius: 4px;
-        margin-right: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-    }
-
-    .tarea-item.completada .tarea-checkbox {
-        background: var(--color-primary);
-        border-color: var(--color-primary);
-        color: white;
-    }
-
-    .tarea-texto {
-        font-size: 14px;
-        color: var(--color-dark);
-    }
-
-    /* Empty State */
-    .empty-state {
-        text-align: center;
-        padding: 48px 24px;
-    }
-
-    .empty-state-icon {
-        font-size: 56px;
-        margin-bottom: 16px;
-    }
-
-    .empty-state h3 {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 8px;
-    }
-
-    .empty-state p {
-        color: var(--color-gray);
-        margin-bottom: 24px;
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-        .sidebar {
-            display: none;
-        }
-
-        .main-content {
-            margin-left: 0;
-        }
-
-        .metrics-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .content-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .evento-activo {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .evento-actions {
-            justify-content: center;
-        }
-    }
-</style>
-
-<div class="dashboard-layout">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <img src="festeasy.jpeg" alt="FESTEASY"
-                onerror="this.outerHTML='<span style=font-size:24px;font-weight:700;color:#E91E63>FESTEASY</span>'">
-        </div>
-        <nav class="sidebar-nav">
-            <a class="nav-item active" routerLink="/cliente/dashboard">
-                <span class="nav-item-icon">📊</span>
-                Dashboard
-            </a>
-            <a class="nav-item" routerLink="/cliente/marketplace">
-                <span class="nav-item-icon">🎉</span>
-                Explorar
-            </a>
-            <a class="nav-item" routerLink="/cliente/solicitudes">
-                <span class="nav-item-icon">📋</span>
-                Solicitudes
-            </a>
-            <a class="nav-item" routerLink="/cliente/carrito">
-                <span class="nav-item-icon">🛒</span>
-                Carrito
-            </a>
-        </nav>
-        <div class="sidebar-footer">
-            <a class="nav-item" routerLink="/cliente/configuracion">
-                <span class="nav-item-icon">⚙️</span>
-                Configuración
-            </a>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Header -->
-        <header class="dashboard-header">
-            <div class="search-box">
-                <span class="search-box-icon">🔍</span>
-                <input type="text" placeholder="Buscar proveedores, servicios...">
+<div class="layout-container flex flex-col min-h-screen">
+    <div class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="layout-container flex w-full flex-col">
+            <div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-3">
+                <app-header></app-header>
             </div>
-            <div class="header-actions">
-                <button class="notification-btn">
-                    🔔
-                    <span class="notification-badge"></span>
+        </div>
+    </div>
+
+    <main class="flex-1 flex items-center justify-center p-6 md:p-12">
+        <div
+            class="w-full max-w-[1000px] bg-white rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] overflow-hidden">
+            <div
+                class="px-8 pt-10 pb-8 border-b border-gray-50 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-6">
+                    <div class="relative">
+                        <div class="size-24 rounded-full bg-cover bg-center border-4 border-white shadow-xl"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuByOvSNu0499xgBaPTmiD_FVE-0y533je7njIMFQNGKJomsHqWlHBJ4Mj6Kajdx1nL09hQE4ft_F9UTN8AshpinqxPRYo1Vx1gLkQNUOqpSd2vaUJVKo35gESQHzhl0s4tslOLPAygnVNJ9abJkYhaUSvjBKkY4Ao_ook9tdjJtb5taw7GRgtBzlEjX9eqkBZo_DBx1QJhWPDVO2rJ6Io4QYJKwlmSJ7R9S1a3DtRCJQlKTFYvmkEPdQrEy13LBGAiNJWgc7nv8jT0");'>
+                        </div>
+                        <div
+                            class="absolute bottom-0 right-0 bg-primary text-white p-1 rounded-full shadow-lg border-2 border-white">
+                            <span class="material-symbols-outlined text-sm block">edit</span>
+                        </div>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <div class="flex flex-col md:flex-row md:items-center gap-2">
+                            <h1 class="text-2xl font-bold text-gray-900">{{ getUserName() }}</h1>
+                            <span
+                                class="inline-flex items-center gap-1 bg-green-50 text-green-600 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border border-green-100">
+                                <span class="material-symbols-outlined text-[14px]">verified</span>
+                                Usuario Verificado
+                            </span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-1">{{ getUserEmail() }} • Miembro desde 2024</p>
+                    </div>
+                </div>
+                <button
+                    class="px-6 py-3 border border-gray-200 rounded-full text-sm font-semibold hover:bg-gray-50 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">person</span>
+                    Editar Perfil
                 </button>
-                <div class="user-profile">
-                    <div class="user-info">
-                        <p class="user-name">{{ getUserName() }}</p>
-                        <p class="user-role">Cliente</p>
-                    </div>
-                    <div class="user-avatar">
-                        {{ getUserName().charAt(0).toUpperCase() }}
-                    </div>
-                </div>
             </div>
-        </header>
-
-        <!-- Dashboard Content -->
-        <div class="dashboard-content">
-            <!-- Welcome -->
-            <div class="welcome-section">
-                <h1>¡Hola, {{ getUserName() }}! 👋</h1>
-                <p>Hoy es un gran día para seguir planeando tus momentos especiales.</p>
+            <div class="p-8 md:p-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a class="group flex flex-col items-center text-center p-8 rounded-3xl border border-gray-100 bg-white hover:bg-red-50/20 hover:border-red-100 hover:shadow-xl transition-all duration-300"
+                    routerLink="/cliente/soporte">
+                    <div
+                        class="size-16 rounded-full bg-red-50 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">fire_extinguisher</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Ayuda y Soporte</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Resolución de dudas y contacto directo con el
+                        Centro de Ayuda.</p>
+                </a>
+                <a class="group flex flex-col items-center text-center p-8 rounded-3xl border border-gray-100 bg-white hover:bg-red-50/20 hover:border-red-100 hover:shadow-xl transition-all duration-300"
+                    routerLink="/cliente/direcciones">
+                    <div
+                        class="size-16 rounded-full bg-red-50 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">location_on</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Direcciones</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Gestiona tus ubicaciones frecuentes para entregas y
+                        eventos.</p>
+                </a>
+                <a class="group flex flex-col items-center text-center p-8 rounded-3xl border border-gray-100 bg-white hover:bg-red-50/20 hover:border-red-100 hover:shadow-xl transition-all duration-300"
+                    href="#">
+                    <div
+                        class="size-16 rounded-full bg-red-50 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-[32px]">favorite</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Favoritos</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Tus proveedores guardados y colecciones para
+                        futuros festejos.</p>
+                </a>
             </div>
-
-            <!-- Métricas -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <div class="metric-icon blue">📅</div>
-                        <span class="metric-period">Este mes</span>
+            <div class="bg-gray-50/50 p-8 border-t border-gray-100">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 max-w-[800px] mx-auto">
+                    <div class="flex items-center gap-8">
+                        <a class="flex items-center gap-2 text-sm font-semibold text-gray-900 hover:text-primary transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined text-[20px]">settings</span>
+                            Configuración de Cuenta
+                        </a>
+                        <a class="flex items-center gap-2 text-sm font-semibold text-gray-900 hover:text-primary transition-colors"
+                            routerLink="/cliente/pagos">
+                            <span class="material-symbols-outlined text-[20px]">credit_card</span>
+                            Métodos de Pago
+                        </a>
+                        <a class="flex items-center gap-2 text-sm font-semibold text-gray-900 hover:text-primary transition-colors"
+                            href="#">
+                            <span class="material-symbols-outlined text-[20px]">notifications</span>
+                            Notificaciones
+                        </a>
                     </div>
-                    <p class="metric-label">Eventos Activos</p>
-                    <p class="metric-value">{{ metricas().eventosActivos }}</p>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <div class="metric-icon amber">⏳</div>
-                        <span class="metric-period">Pendientes</span>
-                    </div>
-                    <p class="metric-label">Cotizaciones Pendientes</p>
-                    <p class="metric-value">{{ metricas().cotizacionesPendientes }}</p>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <div class="metric-icon green">💰</div>
-                        <span class="metric-period">Total</span>
-                    </div>
-                    <p class="metric-label">Inversión Total</p>
-                    <p class="metric-value">${{ metricas().inversionTotal.toLocaleString() }}</p>
-                </div>
-            </div>
-
-            <!-- Content Grid -->
-            <div class="content-grid">
-                <div class="main-column">
-                    <!-- Evento Activo -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Evento Activo</h2>
-                            <a class="card-link" routerLink="/cliente/solicitudes">Ver todos</a>
-                        </div>
-                        <div class="card-body">
-                            @if (eventoActivo()) {
-                            <div class="evento-activo">
-                                <div class="evento-imagen">🎊</div>
-                                <div class="evento-info">
-                                    <span class="evento-badge">Próximamente</span>
-                                    <h3 class="evento-titulo">{{ eventoActivo().titulo }}</h3>
-                                    <p class="evento-ubicacion">
-                                        📍 {{ eventoActivo().ubicacion || 'Ubicación por definir' }}
-                                    </p>
-                                    <div class="progreso-container">
-                                        <div class="progreso-header">
-                                            <span class="progreso-label">Progreso de la planeación</span>
-                                            <span class="progreso-value">{{ eventoActivo().progreso }}%</span>
-                                        </div>
-                                        <div class="progreso-bar">
-                                            <div class="progreso-fill" [style.width.%]="eventoActivo().progreso"></div>
-                                        </div>
-                                    </div>
-                                    <div class="evento-actions">
-                                        <button class="btn-primary" routerLink="/cliente/marketplace">Continuar
-                                            planeando</button>
-                                        <button class="btn-secondary">Detalles</button>
-                                    </div>
-                                </div>
-                            </div>
-                            } @else {
-                            <div class="empty-state">
-                                <div class="empty-state-icon">🎉</div>
-                                <h3>¡Planea tu primer evento!</h3>
-                                <p>Explora proveedores y crea tu primera solicitud</p>
-                                <button class="btn-primary" routerLink="/cliente/marketplace">Explorar
-                                    proveedores</button>
-                            </div>
-                            }
-                        </div>
-                    </div>
-
-                    <!-- Actividad Reciente -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Actividad Reciente</h2>
-                        </div>
-                        @if (actividades().length > 0) {
-                        <table class="activity-table">
-                            <thead>
-                                <tr>
-                                    <th>Proveedor / Servicio</th>
-                                    <th>Fecha</th>
-                                    <th>Estado</th>
-                                    <th>Monto</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @for (act of actividades(); track act.id) {
-                                <tr>
-                                    <td>
-                                        <div class="activity-proveedor">
-                                            <div class="proveedor-icon red">{{ act.icono }}</div>
-                                            <div>
-                                                <p class="proveedor-nombre">{{ act.proveedor }}</p>
-                                                <p class="proveedor-servicio">{{ act.servicio }}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>{{ act.fecha }}</td>
-                                    <td>
-                                        <span class="estado-badge" [class]="getEstadoClass(act.estado)">
-                                            {{ act.estadoLabel }}
-                                        </span>
-                                    </td>
-                                    <td class="monto">${{ act.monto.toLocaleString() }}</td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                        } @else {
-                        <div class="card-body">
-                            <div class="empty-state">
-                                <div class="empty-state-icon">📋</div>
-                                <h3>Sin actividad reciente</h3>
-                                <p>Tus solicitudes aparecerán aquí</p>
-                            </div>
-                        </div>
-                        }
-                    </div>
-                </div>
-
-                <div class="side-column">
-                    <!-- Recomendados -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Recomendados para ti</h2>
-                        </div>
-                        <div class="card-body">
-                            @for (rec of recomendados(); track rec.id) {
-                            <div class="recomendado-item">
-                                <div class="recomendado-icon">{{ rec.icono }}</div>
-                                <div class="recomendado-info">
-                                    <p class="recomendado-nombre">{{ rec.nombre }}</p>
-                                    <p class="recomendado-rating">{{ rec.rating }} ★ ({{ rec.resenas }} reseñas)</p>
-                                </div>
-                                <span class="recomendado-arrow">→</span>
-                            </div>
-                            }
-                            <button class="btn-outline-full" routerLink="/cliente/marketplace">
-                                Explorar categorías
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Tareas Pendientes -->
-                    <div class="card tareas-card">
-                        <div class="card-header">
-                            <h2 class="card-title">✅ Tareas Pendientes</h2>
-                        </div>
-                        <div class="card-body">
-                            @for (tarea of tareas(); track tarea.id) {
-                            <div class="tarea-item" [class.completada]="tarea.completada"
-                                (click)="toggleTarea(tarea.id)">
-                                <div class="tarea-checkbox">
-                                    @if (tarea.completada) { ✓ }
-                                </div>
-                                <span class="tarea-texto">{{ tarea.texto }}</span>
-                            </div>
-                            }
-                        </div>
-                    </div>
+                    <button (click)="logout()"
+                        class="flex items-center gap-2 text-sm font-bold text-primary/80 hover:text-primary transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined text-[20px]">logout</span>
+                        Cerrar Sesión
+                    </button>
                 </div>
             </div>
         </div>
     </main>
+    <footer class="py-10 text-center">
+        <p class="text-xs text-gray-400 font-medium tracking-wide">© 2024 FestEasy. La plataforma premium para eventos
+            extraordinarios.</p>
+    </footer>
 </div>

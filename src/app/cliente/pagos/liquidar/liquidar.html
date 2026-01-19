@@ -1,0 +1,133 @@
+<div class="bg-glacial-custom dark:bg-background-dark min-h-screen text-[#181111] dark:text-white">
+    <div class="layout-container flex h-full grow flex-col">
+        <!-- Top Navigation -->
+        <app-header></app-header>
+
+        <main class="flex-1 flex flex-col items-center py-10 px-4">
+            <div class="w-full max-w-[640px] flex flex-col gap-6">
+                <!-- Breadcrumbs -->
+                <div class="flex flex-wrap gap-2 px-2">
+                    <a class="text-[#886364] dark:text-gray-400 text-sm font-medium leading-normal hover:underline"
+                        href="#">Mis Eventos</a>
+                    <span class="text-[#886364] dark:text-gray-400 text-sm font-medium leading-normal">/</span>
+                    <a class="text-[#886364] dark:text-gray-400 text-sm font-medium leading-normal hover:underline"
+                        href="#">Boda Martínez</a>
+                    <span class="text-[#886364] dark:text-gray-400 text-sm font-medium leading-normal">/</span>
+                    <span class="text-primary text-sm font-medium leading-normal">Liquidar Saldo</span>
+                </div>
+                <!-- Main Card -->
+                <div
+                    class="bg-white dark:bg-background-dark rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] overflow-hidden border border-[#f0f0f0] dark:border-white/5">
+                    <!-- Elegant Header Section -->
+                    <div class="relative h-48 w-full bg-cover bg-center"
+                        data-alt="Elegant luxury wedding banquet hall decoration"
+                        style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRpKN4CCRoGveDet3B43LI9glQblIolMaSnvnsQD2_MEI3ZcYkUPbDR9EsFKpSQpSjk5a2HAH44GL12dfx6bHZZbpqsJdpA-yiJkiDKTtR5fKagYDHpDfuL-1Zz0I24Nea_puptbZYWNd7A19fnPoBpuimiYSlh1ukStaKYZZxndNfMcfuPfyp-kiOgfO2H8BQqEjz0y4TFsSVYuck1QzgOA8_o8qdz2NaNa-85YhZv5aUw3Dws856RnYk07xTPUQi6f604HB01GI');">
+                        <div
+                            class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-black/60 to-transparent">
+                            <div class="flex items-center gap-4">
+                                <div class="size-14 rounded-full bg-white p-1 shadow-lg">
+                                    <div class="w-full h-full rounded-full bg-center bg-cover"
+                                        data-alt="Premium catering provider logo"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCz64B_LWJOtrysLm-guiXlt8U7bEelWhesqqxjLRZF1ziSvLn2mW7RuXX09_qz9cKnqWoXfoP4HE_t8N0ONMaLSmv8cHAZ5MpzRSpyS91YApoHZ-oXcDSGMcL0nKgNQLfoBKARBsHNN4X37NhNB45Jqm3GAfvxmoiQagqk1_B4ZLowKUgWoi3eJ4zLmYI753lRoWVMHYA7SmEezGfhtDl5MKWjxz-emLD01MxtwMfySpO8mWRs6DNGrYFiPV7PT17JQBFn5P6Y7O4');">
+                                    </div>
+                                </div>
+                                <div class="text-white">
+                                    <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Liquidación
+                                        Final</p>
+                                    <h1 class="text-2xl font-bold">Boda Martínez</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col gap-8">
+                        <!-- Financial History / Timeline -->
+                        <div class="flex flex-col gap-4">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-[#886364] dark:text-gray-400">
+                                Historial de Pagos</h3>
+                            <div class="grid grid-cols-[40px_1fr] gap-x-2">
+                                <div class="flex flex-col items-center gap-1">
+                                    <div class="text-green-500 material-symbols-outlined text-[24px]">check_circle</div>
+                                    <div class="w-[2px] bg-green-500/30 h-10"></div>
+                                </div>
+                                <div class="flex flex-1 flex-col pb-6">
+                                    <div class="flex justify-between items-start">
+                                        <p class="text-[#181111] dark:text-white text-base font-semibold">Anticipo
+                                            Pagado</p>
+                                        <span
+                                            class="text-sm font-medium text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded-full">Completado</span>
+                                    </div>
+                                    <p class="text-[#886364] dark:text-gray-400 text-sm">Pagado el 15 de Octubre, 2023
+                                    </p>
+                                    <p class="text-[#181111] dark:text-white text-sm font-medium mt-1">$2,500.00</p>
+                                </div>
+                                <div class="flex flex-col items-center gap-1">
+                                    <div class="text-primary material-symbols-outlined text-[24px]">pending</div>
+                                </div>
+                                <div class="flex flex-1 flex-col">
+                                    <div class="flex justify-between items-start">
+                                        <p class="text-[#181111] dark:text-white text-base font-semibold">Saldo Restante
+                                        </p>
+                                        <span
+                                            class="text-sm font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">Pendiente</span>
+                                    </div>
+                                    <p class="text-[#886364] dark:text-gray-400 text-sm">Fecha límite: Hoy</p>
+                                    <p class="text-primary text-sm font-bold mt-1">$4,500.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="border-[#f4f0f0] dark:border-white/10" />
+                        <!-- Total Amount Section -->
+                        <div class="text-center py-4 bg-primary/5 rounded-xl border border-primary/10">
+                            <p class="text-[#886364] dark:text-gray-400 text-sm font-medium mb-1">Total a Liquidar</p>
+                            <h2 class="text-primary text-5xl font-black tracking-tight">$4,500.00</h2>
+                        </div>
+                        <!-- Payment Method -->
+                        <div class="flex flex-col gap-4">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-[#886364] dark:text-gray-400">
+                                Método de Pago</h3>
+                            <div
+                                class="flex items-center justify-between p-4 rounded-xl border border-[#e5dcdc] dark:border-white/10 bg-white dark:bg-background-dark/50">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-12 h-8 bg-[#1a1a1a] rounded flex items-center justify-center text-white font-bold italic text-xs">
+                                        VISA</div>
+                                    <div>
+                                        <p class="text-sm font-bold text-[#181111] dark:text-white">Visa terminada en
+                                            4242</p>
+                                        <p class="text-xs text-[#886364] dark:text-gray-400">Expira 12/26</p>
+                                    </div>
+                                </div>
+                                <button
+                                    class="text-primary text-sm font-bold hover:underline cursor-pointer">Cambiar</button>
+                            </div>
+                        </div>
+                        <!-- CTA Section -->
+                        <div class="flex flex-col gap-4">
+                            <button
+                                class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-full shadow-lg shadow-primary/20 transition-all active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+                                <span class="material-symbols-outlined text-[20px]">lock</span>
+                                Liquidar y Confirmar Evento
+                            </button>
+                            <div
+                                class="flex items-center justify-center gap-2 text-[#886364] dark:text-gray-400 text-xs font-medium">
+                                <span class="material-symbols-outlined text-[16px]">verified_user</span>
+                                Pago 100% seguro con encriptación SSL de 256 bits
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer support links -->
+                <div class="flex justify-between items-center px-4 text-[#886364] dark:text-gray-400 text-sm">
+                    <div class="flex gap-4">
+                        <a class="hover:text-primary" href="#">Términos y condiciones</a>
+                        <a class="hover:text-primary" href="#">Privacidad</a>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span>Necesitas ayuda?</span>
+                        <a class="text-primary font-bold" href="#">Contactar soporte</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+
+> festeasy-frontend@0.0.0 build
+> ng build
+
+Node.js version v25.2.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/previous-releases/.
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [4.540 seconds] - 2026-01-19T01:35:43.859Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: MapaComponent is not used within the template of MarketplaceComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/cliente/marketplace/marketplace.ts:12:56:
+[37m      12 │ ...mports: [RouterLink, FormsModule, HeaderComponent, [32mMapaComponent[37m],
+         ╵                                                       [32m~~~~~~~~~~~~~[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mNG8113: RouterLink is not used within the template of MisSolicitudesComponent[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/cliente/solicitudes/solicitudes.component.ts:11:28:
+[37m      11 │     imports: [CommonModule, [32mRouterLink[37m, HeaderComponent],
+         ╵                             [32m~~~~~~~~~~[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2367: This comparison appears to be unintentional because the types '"pendiente_aprobacion" | "rechazada" | "esperando_anticipo" | "reservado" | "en_progreso" | "entregado_pendiente_liq" | "finalizado" | "cancelada" | "abandonada"' and '"aceptada"' have no overlap.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/cliente/dashboard/dashboard.ts:75:50:
+[37m      75 │ ...       const activo = requests.find(r => [32mr.estado === 'aceptada'[37m);
+         ╵                                             [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2367: This comparison appears to be unintentional because the types '"pendiente_aprobacion" | "rechazada" | "esperando_anticipo" | "reservado" | "en_progreso" | "entregado_pendiente_liq" | "finalizado" | "cancelada" | "abandonada"' and '"aceptada"' have no overlap.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/proveedor/agenda/agenda.ts:39:58:
+[37m      39 │ ... acceptedRequests = requests.filter(r => [32mr.estado === 'aceptada'[37m);
+         ╵                                             [32m~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2367: This comparison appears to be unintentional because the types '"finalizado" | "rechazada" | "cancelada" | "pendiente_aprobacion" | "esperando_anticipo" | "reservado" | "en_progreso" | "entregado_pendiente_liq" | "abandonada"' and '"aceptada"' have no overlap.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/proveedor/dashboard/dashboard.html:196:61:
+[37m      196 │ ...                  [class.bg-green-50]="[32mreq.estado === 'aceptada'[37m"
+          ╵                                           [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component ProveedorDashboardComponent.
+
+    src/app/proveedor/dashboard/dashboard.ts:13:17:
+[37m      13 │     templateUrl: [32m'./dashboard.html'[37m,
+         ╵                  [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2367: This comparison appears to be unintentional because the types '"finalizado" | "rechazada" | "cancelada" | "pendiente_aprobacion" | "esperando_anticipo" | "reservado" | "en_progreso" | "entregado_pendiente_liq" | "abandonada"' and '"aceptada"' have no overlap.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/proveedor/dashboard/dashboard.html:197:64:
+[37m      197 │ ...              [class.text-green-600]="[32mreq.estado === 'aceptada'[37m">
+          ╵                                          [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component ProveedorDashboardComponent.
+
+    src/app/proveedor/dashboard/dashboard.ts:13:17:
+[37m      13 │     templateUrl: [32m'./dashboard.html'[37m,
+         ╵                  [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2367: This comparison appears to be unintentional because the types '"finalizado" | "rechazada" | "cancelada" | "pendiente_aprobacion" | "esperando_anticipo" | "reservado" | "en_progreso" | "entregado_pendiente_liq" | "abandonada"' and '"aceptada"' have no overlap.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/proveedor/dashboard/dashboard.html:200:66:
+[37m      200 │ ...         [class.bg-green-500]="[32mreq.estado === 'aceptada'[37m"></span>
+          ╵                                   [32m~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component ProveedorDashboardComponent.
+
+    src/app/proveedor/dashboard/dashboard.ts:13:17:
+[37m      13 │     templateUrl: [32m'./dashboard.html'[37m,
+         ╵                  [32m~~~~~~~~~~~~~~~~~~[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mTS2367: This comparison appears to be unintentional because the types '"finalizado" | "rechazada" | "cancelada" | "pendiente_aprobacion" | "esperando_anticipo" | "reservado" | "en_progreso" | "entregado_pendiente_liq" | "abandonada"' and '"aceptada"' have no overlap.[0m [1m[35m[plugin angular-compiler][0m
+
+    src/app/proveedor/solicitudes/solicitudes.html:28:51:
+[37m      28 │ ...         'bg-green-100 text-green-700': [32mitem.estado === 'aceptada'[37m
+         ╵                                            [32m~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  Error occurs in the template of component SolicitudesComponent.
+
+    src/app/proveedor/solicitudes/solicitudes.ts:11:17:
+[37m      11 │     templateUrl: [32m'./solicitudes.html'[37m
+         ╵                  [32m~~~~~~~~~~~~~~~~~~~~[0m
+
+[39m[22m

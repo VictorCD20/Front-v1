@@ -259,5 +259,88 @@ export class ApiService {
     getServiceCategories(): Observable<any[]> {
         return this.http.get<any[]>(`${this.API_URL}/categorias-servicio`);
     }
+    // ==========================================
+    // 14. Direcciones (Mock for now)
+    // ==========================================
+    getAddresses(): Observable<any[]> {
+        // Simulating backend response
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next([
+                    {
+                        id: '1',
+                        nombre: 'Casa',
+                        principal: true,
+                        direccion: 'Calle de la Reforma 450, Interior 4B',
+                        colonia: 'Col. Juárez, Ciudad de México, CP 06600'
+                    },
+                    {
+                        id: '2',
+                        nombre: 'Oficina',
+                        principal: false,
+                        direccion: 'Av. Insurgentes Sur 1602, Piso 12',
+                        colonia: 'San Ángel, Ciudad de México, CP 01020'
+                    },
+                    {
+                        id: '3',
+                        nombre: 'Hacienda',
+                        principal: false,
+                        direccion: 'Carretera Federal Cuernavaca KM 24.5',
+                        colonia: 'San Pedro Mártir, Tlalpan, CP 14650'
+                    }
+                ]);
+            }, 500);
+        });
+    }
+
+    // ==========================================
+    // 15. Métodos de Pago (Mock for now)
+    // ==========================================
+    getPaymentMethods(): Observable<any[]> {
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next([
+                    {
+                        id: '1',
+                        tipo: 'visa',
+                        nombre: 'Visa acabada en 4242',
+                        expiracion: '12/26',
+                        principal: true,
+                        icono: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAbqXmWTcLpoNeI7ncm_Ne0FovYY5PIi6DwEAJqkfbvjaUVjkbpoREu9ba8XAsVmifJDvo2pF_O1rQZhF-tdVtcnFW4MhNtAY4ME3lqh-0_7Q1Hyv3dIU6f0ewBlD-xAhHcLj_TSGQNHVmBj_D-56hVM2sbCnbNkWK4QTQyIloPK6xIgwXGVlrFnuSjSopWKTkD9qMMF6JS1HCDEeQW9saxMWW98XDT3sqa_MNWerXoR9_8jO2rxseQd0XNQ0AM1shNpER1eRMS6cc'
+                    },
+                    {
+                        id: '2',
+                        tipo: 'mastercard',
+                        nombre: 'Mastercard acabada en 8890',
+                        expiracion: '05/25',
+                        principal: false,
+                        icono: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBBnWNfdDrxXN7equpAcDkWLSlK72-Ucb8JIcoGia9QAxTJ-vWxs854OesFawLXekVZBg58Uft2Viz4Vgw5bNqiY-ARPpun3ZgxSY8NtYmmC5O2UymF6Xc3nNs2KYgfR5xOGwO8zh_cz-yDPWD75nm0wppCB4itVKKN2tQmAzb4Mv26V7Vu6cUO5CTD2opX9s8nkRYq6tf8QJDD963rcPixeSt3G6Og18wGkUGZIo6pptRNX6lIRJBP07cAw0uUfIZtFqoVqIgAD_c'
+                    }
+                ]);
+                observer.complete();
+            }, 500);
+        });
+    }
+    // ==========================================
+    // 16. Recordatorio de Pago (Mock)
+    // ==========================================
+    getPaymentReminder(): Observable<any> {
+        return new Observable(observer => {
+            setTimeout(() => {
+                observer.next({
+                    evento: 'Boda Martínez',
+                    diasRestantes: 15,
+                    proveedor: {
+                        nombre: 'Sonic Audio Visuals',
+                        descripcion: 'Paquete Premium de Iluminación y Sonido',
+                        estado: 'Confirmado'
+                    },
+                    saldoPendiente: 12500.00,
+                    fechaLimite: '05 de Octubre'
+                });
+                observer.complete();
+            }, 500);
+        });
+    }
 }
 

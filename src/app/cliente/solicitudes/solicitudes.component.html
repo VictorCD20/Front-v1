@@ -1,178 +1,183 @@
-<div class="min-h-screen bg-gray-50 pb-12">
-    <!-- Header Hero -->
-    <div class="bg-white border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Mis Solicitudes</h1>
-                    <p class="mt-1 text-sm text-gray-500">Gestiona y da seguimiento a tus eventos</p>
-                </div>
-                <a routerLink="/cliente/solicitudes/crear"
-                    class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-                    <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    Nueva Solicitud
-                </a>
-            </div>
-
-            <!-- Tabs -->
-            <div class="mt-8 border-b border-gray-100">
-                <nav class="-mb-px flex space-x-8">
-                    <button (click)="setTab('todas')" [class.border-indigo-500]="activeTab() === 'todas'"
-                        [class.text-indigo-600]="activeTab() === 'todas'"
-                        [class.border-transparent]="activeTab() !== 'todas'"
-                        [class.text-gray-500]="activeTab() !== 'todas'"
-                        class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm hover:text-gray-700 transition-colors">
-                        Todas
-                    </button>
-                    <button (click)="setTab('activas')" [class.border-indigo-500]="activeTab() === 'activas'"
-                        [class.text-indigo-600]="activeTab() === 'activas'"
-                        [class.border-transparent]="activeTab() !== 'activas'"
-                        [class.text-gray-500]="activeTab() !== 'activas'"
-                        class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm hover:text-gray-700 transition-colors">
-                        Activas
-                    </button>
-                    <button (click)="setTab('cotizando')" [class.border-indigo-500]="activeTab() === 'cotizando'"
-                        [class.text-indigo-600]="activeTab() === 'cotizando'"
-                        [class.border-transparent]="activeTab() !== 'cotizando'"
-                        [class.text-gray-500]="activeTab() !== 'cotizando'"
-                        class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm hover:text-gray-700 transition-colors">
-                        Cotizando
-                    </button>
-                    <button (click)="setTab('contratadas')" [class.border-indigo-500]="activeTab() === 'contratadas'"
-                        [class.text-indigo-600]="activeTab() === 'contratadas'"
-                        [class.border-transparent]="activeTab() !== 'contratadas'"
-                        [class.text-gray-500]="activeTab() !== 'contratadas'"
-                        class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm hover:text-gray-700 transition-colors">
-                        Contratadas
-                    </button>
-                    <button (click)="setTab('finalizadas')" [class.border-indigo-500]="activeTab() === 'finalizadas'"
-                        [class.text-indigo-600]="activeTab() === 'finalizadas'"
-                        [class.border-transparent]="activeTab() !== 'finalizadas'"
-                        [class.text-gray-500]="activeTab() !== 'finalizadas'"
-                        class="whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm hover:text-gray-700 transition-colors">
-                        Finalizadas
-                    </button>
-                </nav>
-            </div>
+<div class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md border-b border-[#f4f0f0]">
+    <div class="layout-container flex w-full flex-col">
+        <div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-3">
+            <app-header></app-header>
+        </div>
+    </div>
+</div>
+<main class="max-w-[1024px] mx-auto px-6 py-12 pb-24 font-body text-jet">
+    <!-- Page Heading & Tabs -->
+    <div class="flex flex-col items-center gap-8 mb-12">
+        <h1 class="text-4xl md:text-5xl font-black text-center text-jet tracking-tight font-display">
+            Seguimiento de mi Evento
+        </h1>
+        <!-- Tabs -->
+        <div class="inline-flex items-center p-1 bg-white rounded-full shadow-sm border border-gray-100">
+            <button (click)="setTab('activas')" [class.bg-jet]="activeTab() === 'activas'"
+                [class.text-white]="activeTab() === 'activas'" [class.text-gray-500]="activeTab() !== 'activas'"
+                [class.hover:bg-gray-50]="activeTab() !== 'activas'"
+                class="px-8 py-2.5 rounded-full text-sm font-bold shadow-md transition-all">
+                Activas
+            </button>
+            <button (click)="setTab('finalizadas')" [class.bg-jet]="activeTab() === 'finalizadas'"
+                [class.text-white]="activeTab() === 'finalizadas'" [class.text-gray-500]="activeTab() !== 'finalizadas'"
+                [class.hover:bg-gray-50]="activeTab() !== 'finalizadas'"
+                class="px-8 py-2.5 rounded-full text-sm font-bold transition-all">
+                Historial
+            </button>
         </div>
     </div>
 
-    <!-- Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Cards Container -->
+    <div class="flex flex-col gap-8">
 
-        <!-- Loading State -->
-        <div *ngIf="loading()" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <div *ngFor="let i of [1,2,3]" class="bg-white rounded-xl shadow-sm p-6 animate-pulse">
-                <div class="h-40 bg-gray-200 rounded-lg mb-4"></div>
-                <div class="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div class="h-4 bg-gray-200 rounded w-1/2"></div>
-            </div>
+        @if (loading()) {
+        <div class="text-center py-12">
+            <p class="text-gray-500">Cargando solicitudes...</p>
         </div>
+        } @else {
+        @for (req of filteredRequests(); track req.id) {
 
-        <!-- Empty State -->
-        <div *ngIf="!loading() && filteredRequests().length === 0"
-            class="text-center py-12 bg-white rounded-xl shadow-sm border border-dashed border-gray-300">
-            <div class="mx-auto h-12 w-12 text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
+        <!-- Dynamic Card based on state -->
+        <article
+            class="group bg-white rounded-premium p-6 shadow-premium transition-transform duration-300 hover:-translate-y-1 border border-transparent hover:border-gray-100"
+            [class.border-red-50]="req.estado === 'rechazada' || req.estado === 'cancelada'">
+
+            @if (req.estado === 'rechazada' || req.estado === 'cancelada') {
+            <div
+                class="absolute -right-10 -top-10 w-40 h-40 bg-red-50 rounded-full blur-3xl opacity-50 pointer-events-none">
             </div>
-            <h3 class="mt-2 text-sm font-medium text-gray-900">No hay solicitudes</h3>
-            <p class="mt-1 text-sm text-gray-500">Comienza creando tu primera solicitud de servicio.</p>
-            <div class="mt-6">
-                <a routerLink="/cliente/solicitudes/crear"
-                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                    <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                            clip-rule="evenodd" />
-                    </svg>
-                    Crear Nueva Solicitud
-                </a>
-            </div>
-        </div>
+            }
 
-        <!-- List Grid -->
-        <div *ngIf="!loading() && filteredRequests().length > 0"
-            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <div *ngFor="let sol of filteredRequests()"
-                class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100 flex flex-col">
-
-                <!-- Card Image & Badge -->
-                <div class="relative h-48 bg-gray-200 overflow-hidden">
-                    <!-- Placeholder or mock image based on category -->
-                    <img [src]="sol.imagen_url" alt="Evento"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-
-                    <!-- Status Badge -->
-                    <div class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-md"
-                        [ngClass]="getStatusBadgeClass(sol.estado)">
-                        {{ sol.estado | titlecase }}
-                    </div>
-
-                    <!-- Date Badge -->
-                    <div
-                        class="absolute bottom-4 left-4 flex items-center bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg text-sm text-gray-700 shadow-sm">
-                        <svg class="mr-1.5 h-4 w-4 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span class="font-medium">{{ sol.fecha_evento | date:'d MMM' }}</span>
-                    </div>
-                </div>
-
-                <!-- Card Content -->
-                <div class="p-5 flex-1 flex flex-col">
-                    <div class="flex-1">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-xs font-medium text-indigo-600 mb-1 tracking-wide uppercase">{{
-                                    sol.categoria }}</p>
-                                <h3 class="text-lg font-bold text-gray-900 line-clamp-1 mb-2">{{ sol.titulo_evento }}
-                                </h3>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center text-sm text-gray-500 mb-4">
-                            <svg class="mr-1.5 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span>{{ getDaysRemaining(sol.fecha_evento) }}</span>
-                        </div>
-
-                        <!-- Provider Info (if matched or in process) -->
-                        <div class="flex items-center space-x-2 mt-2 pt-4 border-t border-gray-50"
-                            *ngIf="sol.cotizaciones_count > 0">
+            <div class="flex flex-col md:flex-row gap-6 relative z-10">
+                <!-- Content -->
+                <div class="flex-1 flex flex-col justify-between gap-6">
+                    <!-- Header -->
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3"
+                            [class.opacity-60]="req.estado === 'rechazada' || req.estado === 'cancelada'">
                             <div
-                                class="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs">
-                                {{ sol.cotizaciones_count }}
+                                class="w-12 h-12 rounded-full bg-gray-100 overflow-hidden shrink-0 border border-gray-100 flex items-center justify-center text-orange-400">
+                                <img *ngIf="req.proveedor_logo" [src]="req.proveedor_logo"
+                                    class="w-full h-full object-cover">
+                                <span *ngIf="!req.proveedor_logo" class="material-symbols-outlined">{{ req.categoria ===
+                                    'Catering' ? 'restaurant' : 'celebration' }}</span>
                             </div>
-                            <span class="text-sm font-medium text-gray-700">Cotizaciones Recibidas</span>
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Proveedor</p>
+                                <h4 class="text-base font-bold text-jet leading-tight">{{ req.proveedor_nombre }}</h4>
+                            </div>
                         </div>
-                        <div class="mt-2 text-sm text-gray-400 italic" *ngIf="sol.cotizaciones_count === 0">
-                            Esperando propuestas...
-                        </div>
+
+                        <!-- Status Badges -->
+                        @if (req.estado === 'contratado') {
+                        <span
+                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-bold uppercase tracking-wider">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-600"></span>
+                            Confirmado
+                        </span>
+                        } @else if (req.estado === 'cotizando' || req.estado === 'pendiente') {
+                        <span
+                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-50 text-yellow-700 text-xs font-bold uppercase tracking-wider">
+                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+                            Esperando al Proveedor
+                        </span>
+                        } @else if (req.estado === 'rechazada' || req.estado === 'cancelada') {
+                        <span
+                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-700 text-xs font-bold uppercase tracking-wider">
+                            <span class="material-symbols-outlined text-[14px]">close</span>
+                            No disponible
+                        </span>
+                        } @else {
+                        <span
+                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs font-bold uppercase tracking-wider">
+                            {{ req.estado }}
+                        </span>
+                        }
                     </div>
 
-                    <div class="mt-6 flex items-center justify-between">
-                        <button class="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors">Ver
-                            Detalles</button>
-                        <button *ngIf="sol.estado === 'cotizando'"
-                            class="text-xs bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-md transition-colors font-medium">
-                            Ver Cotizaciones
+                    <!-- Body -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-jet mb-3 font-display"
+                            [class.text-gray-400]="req.estado === 'rechazada' || req.estado === 'cancelada'"
+                            [class.line-through]="req.estado === 'rechazada' || req.estado === 'cancelada'"
+                            [class.decoration-red-300]="req.estado === 'rechazada' || req.estado === 'cancelada'">
+                            {{ req.titulo_evento }}
+                        </h3>
+
+                        @if (req.estado === 'rechazada' || req.estado === 'cancelada') {
+                        <!-- Helpful Alternative UI -->
+                        <div class="mt-4 p-4 rounded-xl bg-glacial border border-cyan-100 flex gap-4 items-start">
+                            <div class="p-2 bg-white rounded-full text-primary shrink-0 shadow-sm">
+                                <span class="material-symbols-outlined">support_agent</span>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-700 font-medium leading-relaxed">
+                                    No te preocupes, estamos buscando al siguiente proveedor más cercano para ti.
+                                </p>
+                                <a class="inline-flex items-center gap-1 text-sm font-bold text-primary mt-2 hover:underline"
+                                    href="#">
+                                    Buscar alternativas
+                                    <span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+                                </a>
+                            </div>
+                        </div>
+                        } @else {
+                        <div class="flex flex-wrap gap-4 text-gray-600">
+                            <div class="flex items-center gap-2 text-sm bg-gray-50 px-3 py-1.5 rounded-lg">
+                                <span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                <span>{{ req.fecha_evento | date:'d MMM' }}</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm bg-gray-50 px-3 py-1.5 rounded-lg">
+                                <span class="material-symbols-outlined text-[18px]">schedule</span>
+                                <span>{{ req.hora_evento }}</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm bg-gray-50 px-3 py-1.5 rounded-lg">
+                                <span class="material-symbols-outlined text-[18px]">location_on</span>
+                                <span>{{ req.ubicacion }}</span>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center gap-3 pt-2"
+                        [class.opacity-50]="req.estado === 'rechazada' || req.estado === 'cancelada'"
+                        [class.pointer-events-none]="req.estado === 'rechazada' || req.estado === 'cancelada'">
+                        <button
+                            class="h-12 w-12 flex items-center justify-center rounded-full border border-gray-200 text-jet hover:bg-gray-50 transition-colors"
+                            [disabled]="req.estado === 'pendiente'">
+                            <span class="material-symbols-outlined">chat_bubble</span>
+                        </button>
+                        <button
+                            class="h-12 px-8 rounded-full bg-primary text-white font-bold text-sm shadow-lg shadow-red-200 hover:bg-red-700 transition-colors flex items-center gap-2">
+                            <span>Detalles</span>
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
 
+                <!-- Image -->
+                <div class="w-full md:w-[320px] aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden relative"
+                    [class.grayscale]="req.estado === 'rechazada' || req.estado === 'cancelada'"
+                    [class.opacity-60]="req.estado === 'rechazada' || req.estado === 'cancelada'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    @if (req.estado === 'rechazada' || req.estado === 'cancelada') {
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/10">
+                        <span class="material-symbols-outlined text-white/80 text-6xl">image_not_supported</span>
+                    </div>
+                    }
+                    <img [src]="req.imagen_url" [alt]="req.titulo_evento"
+                        class="w-full h-full object-cover transition-transform duration-700"
+                        [class.group-hover:scale-105]="req.estado !== 'rechazada' && req.estado !== 'cancelada'">
+                </div>
+            </div>
+        </article>
+        } @empty {
+        <div class="mt-12 text-center text-gray-400">
+            <p class="text-sm">No tienes solicitudes en esta categoría.</p>
+        </div>
+        }
+        }
     </div>
-</div>
+</main>
